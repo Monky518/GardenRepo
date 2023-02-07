@@ -97,11 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e35875f23a477f4f83f12a6aa6b2791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantGrowing: {fileID: 0}
-  plantBloom: {fileID: 0}
-  plantWilting: {fileID: 0}
+  plantSprout: {fileID: 21300000, guid: 7bc7cbb555e7c7d47b70041f7059beb8, type: 3}
+  plantGrowing: {fileID: 21300000, guid: 7719a598c788e8449b9be5ba47fcad1c, type: 3}
+  plantBloom: {fileID: 21300000, guid: 0b75ea91f06ca844f8bccacd51e8a59e, type: 3}
+  plantWilting: {fileID: 21300000, guid: 2e503b9d6d2a96343a374af869acb6f0, type: 3}
+  sproutDuration: 2
   growingDuration: 3
   bloomDuration: 1
-  bloomTimer: 0
   unwateredDuration: 2
   watered: 0

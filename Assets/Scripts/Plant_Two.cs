@@ -2,31 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plant : MonoBehaviour
+public class Plant_Two : MonoBehaviour
 {
+    public Sprite plantSprout;
     public Sprite plantGrowing;
-    public Sprite plantBloom;
+    public Sprite plantBloomTop;
+    public Sprite plantBloomBottom;
     public Sprite plantWilting;
 
     public enum Stage
     {
+        Sprout,
         Growing,
         Bloom,
         Wilting,
         Dead
     }
 
-    Stage currentStage = Stage.Growing;
-    Stage previousStage = Stage.Growing;
+    Stage currentStage = Stage.Sprout;
+    Stage previousStage = Stage.Sprout;
 
-    public int growingDuration = 3;
+    public int sproutDuration = 2;
+    private int sproutTimer = 0;
+
+    public int growingDuration = 5;
     private int growingTimer = 0;
 
-    public int bloomDuration = 1;
-    public int bloomTimer = 0;
+    public int bloomDuration = 3;
+    private int bloomTimer = 0;
 
     public int unwateredDuration = 2;
-    private int unwateredTimer = 2;
+    private int unwateredTimer = 0;
 
     public bool watered = false;
 
@@ -34,10 +40,42 @@ public class Plant : MonoBehaviour
     {
         Debug.Log(currentStage);
     }
-    
+
     public void NewDay()
     {
-        if (currentStage == Stage.Growing)
+        if (currentStage == Stage.Sprout)
+        {
+            if (watered)
+            {
+                //water and prevent wilting
+                watered = false;
+                unwateredTimer = 0;
+
+                //sprout timer
+                sproutTimer++;
+                if (sproutTimer == sproutDuration)
+                {
+                    previousStage = Stage.Growing;
+                    currentStage = Stage.Growing;
+                    UpdateSprite();
+                }
+            }
+            else
+            {
+                //wilting
+                unwateredTimer--;
+                if (unwateredTimer <= 0)
+                {
+                    //no previous stage when wilting
+                    currentStage = Stage.Wilting;
+                    UpdateSprite();
+                }
+
+                //prep a recovery day for growing plant
+                sproutTimer--;
+            }
+        }
+        else if (currentStage == Stage.Growing)
         {
             if (watered)
             {
@@ -132,19 +170,25 @@ public class Plant : MonoBehaviour
 
     void UpdateSprite()
     {
-        if (currentStage == Stage.Bloom)
+        if (currentStage == Stage.Sprout)
         {
-            if (plantBloom != null)
+            GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite = plantSprout;
+        }
+        else if (currentStage == Stage.Growing)
+        {
+            GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite = plantGrowing;
+        }
+        else if (currentStage == Stage.Bloom)
+        {
+            GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite = plantBloomBottom;
+            if (plantBloomTop != null)
             {
-                GetComponent<SpriteRenderer>().sprite = plantBloom;
+                GameObject.Find("Top").GetComponent<SpriteRenderer>().sprite = plantBloomTop;
             }
         }
         else if (currentStage == Stage.Wilting)
         {
-            if (plantWilting != null)
-            {
-                GetComponent<SpriteRenderer>().sprite = plantWilting;
-            }
+            GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite = plantWilting;
         }
         else if (currentStage == Stage.Dead)
         {

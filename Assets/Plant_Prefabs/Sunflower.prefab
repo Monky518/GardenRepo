@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8692310519097771252}
   - component: {fileID: 8692310519097771259}
   m_Layer: 0
-  m_Name: Sunflower_Bottom
+  m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8692310520213206848}
-  - component: {fileID: 6339589775763951820}
+  - component: {fileID: 1196586810470346126}
   m_Layer: 0
   m_Name: Sunflower
   m_TagString: Untagged
@@ -118,7 +118,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6339589775763951820
+--- !u!114 &1196586810470346126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,15 +127,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8692310520213206849}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e35875f23a477f4f83f12a6aa6b2791, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d3ca76a46563f846a4893e060ac69b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantGrowing: {fileID: 0}
-  plantBloom: {fileID: 0}
-  plantWilting: {fileID: 0}
-  growingDuration: 3
-  bloomDuration: 1
-  bloomTimer: 0
+  plantSprout: {fileID: 21300000, guid: 45a9543231a388d4688809a962707b04, type: 3}
+  plantGrowing: {fileID: 21300000, guid: d1a53e46a4a10024dbd8d6f168e89173, type: 3}
+  plantBloomTop: {fileID: 21300000, guid: 5f35226b2b166144183d63b9a927aeca, type: 3}
+  plantBloomBottom: {fileID: 21300000, guid: 641841060a1894e448ef8c77f0fdd9dc, type: 3}
+  plantWilting: {fileID: 21300000, guid: 8d56a02181441984bbaca9e7c68eea9b, type: 3}
+  sproutDuration: 2
+  growingDuration: 5
+  bloomDuration: 3
   unwateredDuration: 2
   watered: 0
 --- !u!1 &8692310520433448563
@@ -149,7 +151,7 @@ GameObject:
   - component: {fileID: 8692310520433448562}
   - component: {fileID: 8692310520433448561}
   m_Layer: 0
-  m_Name: Sunflower_Top
+  m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

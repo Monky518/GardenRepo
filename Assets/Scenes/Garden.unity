@@ -1566,6 +1566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xRange: 8.4
+  yRange: -3.6
   speed: 1.6
 --- !u!1001 &848777754
 PrefabInstance:

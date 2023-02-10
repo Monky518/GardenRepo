@@ -12,10 +12,10 @@ public class Player : MonoBehaviour
     {
         //inputs for movement
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
-        float moveVertical = Input.GetAxisRaw("Vertical");
+        //float moveVertical = Input.GetAxisRaw("Vertical");
 
         //setting both as a vector 2
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+        Vector2 movement = new Vector2(moveHorizontal, 0f);
 
         //calculating the change
         transform.Translate(movement * speed * Time.deltaTime);

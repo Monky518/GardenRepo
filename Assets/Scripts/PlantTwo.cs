@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plant_Two : MonoBehaviour
+public class PlantTwo : MonoBehaviour
 {
     public Sprite plantSprout;
     public Sprite plantGrowing;

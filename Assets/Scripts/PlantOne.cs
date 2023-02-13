@@ -205,4 +205,9 @@ public class PlantOne : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void PlantRectUpdate()
+    {
+        rect plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
+    }
 }

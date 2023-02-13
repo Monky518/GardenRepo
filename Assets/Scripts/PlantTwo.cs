@@ -36,6 +36,13 @@ public class PlantTwo : MonoBehaviour
 
     public bool watered = false;
 
+    private rect plantRect;
+
+    void Start()
+    {
+        plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
+    }
+
     void Update()
     {
         Debug.Log(currentStage);

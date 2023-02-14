@@ -7,11 +7,6 @@ public class Player : MonoBehaviour
     public float xRange;
     public float speed;
 
-    void Start()
-    {
-        playerRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
-    }
-
     void Update()
     {
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -31,9 +26,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    void PlayerRect()
+    public Rect PlayerRectUpdate()
     {
-        rect playerRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
+        Rect playerRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
         return playerRect;
     }
 }

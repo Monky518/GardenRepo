@@ -206,8 +206,9 @@ public class PlantOne : MonoBehaviour
         }
     }
 
-    public void PlantRectUpdate()
+    public Rect PlantRectUpdate()
     {
-        rect plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
+        Rect plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
+        return plantRect;
     }
 }

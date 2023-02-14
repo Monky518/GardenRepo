@@ -24,36 +24,36 @@ public class GameManager : MonoBehaviour
     public void Watering()
     {
         //sets rect to be smaller to allow some overlapping of pacMan and the ghosts
-        rect playerRect = GameObject.Find("Player").transform.GetComponent<Player>().PlayerRect();
-        GameObject[] plantsOne = GameObject.FindGameObjectWithTag("PlantOne");
-        GameObject[] plantsTwo = GameObject.FindGameObjectWithTag("PlantTwo");
+        Rect playerRect = GameObject.Find("Player").transform.GetComponent<Player>().PlayerRectUpdate();
+        GameObject[] plantsOne = GameObject.FindGameObjectsWithTag("PlantOne");
+        GameObject[] plantsTwo = GameObject.FindGameObjectsWithTag("PlantTwo");
 
-        rect[] plantRect;
+        Rect[] plantRect = new Rect[plantsOne.Length + plantsTwo.Length];
         int counter = 0;
         foreach (GameObject po in plantsOne)
         {
-            plantRect[counter] = po.transform.GetComponent<PlantOne>().plantRect;
+            plantRect[counter] = po.transform.GetComponent<PlantOne>().PlantRectUpdate();
             counter++;
         }
         foreach (GameObject pt in plantsTwo)
         {
-            plantRect[counter] = pt.transform.GetComponent<PlantTwo>().plantRect;
+            plantRect[counter] = pt.transform.GetComponent<PlantTwo>().PlantRectUpdate();
             counter++;
         }
 
         counter = 0;
-        foreach (GameObject pr in plantRect)
+        foreach (Rect pr in plantRect)
         {
             if (pr.Overlaps(playerRect))
             {
                 //water plant
                 if (plantsOne[counter] != null)
                 {
-                    plantsOne[counter].transform.GetComponent<PlantOne>().watering;
+                    plantsOne[counter].transform.GetComponent<PlantOne>().Watering();
                 }
                 else if (plantsTwo[counter] != null)
                 {
-                    plantsTwo[counter].transform.GetComponent<PlantTwo>().watering;
+                    plantsTwo[counter].transform.GetComponent<PlantTwo>().Watering();
                 }
                 else
                 {

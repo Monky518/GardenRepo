@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 545637292828915642}
   - component: {fileID: 545637292828915641}
   - component: {fileID: -4361111192666359556}
+  - component: {fileID: -3723311976933706716}
   m_Layer: 0
   m_Name: Turnip
   m_TagString: PlantOne
@@ -101,8 +102,30 @@ MonoBehaviour:
   plantGrowing: {fileID: 21300000, guid: 880d4d32a8c7d3c4e9a5ab1a69c8bcae, type: 3}
   plantBloom: {fileID: 21300000, guid: 3137c850feb28664b844c4bc81f08bcb, type: 3}
   plantWilting: {fileID: 21300000, guid: b7139f85304edd446a862ec58532a7b2, type: 3}
+  plantDuration: 16
   sproutDuration: 2
   growingDuration: 3
   bloomDuration: 1
   unwateredDuration: 2
   watered: 0
+  wateringAnimation: {fileID: 9100000, guid: 19da3fe7a5c7eb64bbb25ce03e1ccf1e, type: 2}
+--- !u!95 &-3723311976933706716
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545637292828915640}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

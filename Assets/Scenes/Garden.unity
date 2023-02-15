@@ -1574,6 +1574,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7216148469272232152, guid: bb40111558166274c8871c12a2a87718, type: 3}
+      propertyPath: wateringAnimationTimer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4478358747431928764, guid: bb40111558166274c8871c12a2a87718, type: 3}
       propertyPath: m_Name
       value: Corn
@@ -2654,6 +2658,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3255106010769352610, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
+      propertyPath: wateringAnimationTimer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4750627920784952457, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2707,16 +2715,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 55bab11b842b1eb46a804352872ec8a9, type: 3}
     - target: {fileID: 4750627920784952458, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750627920784952458, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4750627920784952458, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
       propertyPath: m_Color.g
-      value: 0.48288226
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4750627920784952458, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4750627920784952459, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
       propertyPath: m_Name
@@ -2724,31 +2736,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
---- !u!1 &1235223950 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4750627920784952459, guid: 4f40271c7bf3e8f469c6a2ec2e4abaae, type: 3}
-  m_PrefabInstance: {fileID: 1235223949}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1235223951
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235223950}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 488e574ca9421724cac3dadab16ac2a2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1242040782
 GameObject:
   m_ObjectHideFlags: 0
@@ -2884,6 +2871,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242040782}
   m_CullTransparentMesh: 1
+--- !u!1 &1358047078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2927043595856908474, guid: e2b7d3a5c0186484fbbfdf2fb854db8e, type: 3}
+  m_PrefabInstance: {fileID: 1452539359}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1358047082
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358047078}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1452539359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2942,6 +2954,14 @@ PrefabInstance:
     - target: {fileID: 2927043595856908484, guid: e2b7d3a5c0186484fbbfdf2fb854db8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8670566811392020926, guid: e2b7d3a5c0186484fbbfdf2fb854db8e, type: 3}
+      propertyPath: wateringAnimation
+      value: 
+      objectReference: {fileID: 9100000, guid: 19da3fe7a5c7eb64bbb25ce03e1ccf1e, type: 2}
+    - target: {fileID: 8670566811392020926, guid: e2b7d3a5c0186484fbbfdf2fb854db8e, type: 3}
+      propertyPath: wateringAnimationTimer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2b7d3a5c0186484fbbfdf2fb854db8e, type: 3}
@@ -3372,6 +3392,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4361111192666359556, guid: d20f1b4d549766b4c974cf3dbd62cfa7, type: 3}
+      propertyPath: wateringAnimationTimer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 545637292828915640, guid: d20f1b4d549766b4c974cf3dbd62cfa7, type: 3}
       propertyPath: m_Name
       value: Turnip
@@ -3601,6 +3625,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3408941315063593054, guid: 9df199c45f9572549a92c2c952c551e7, type: 3}
+      propertyPath: wateringAnimationTimer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4379040336171961024, guid: 9df199c45f9572549a92c2c952c551e7, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -3964,6 +3992,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 502846403848054483, guid: 4d6473ee7c366b84aa90901805a75daa, type: 3}
+      propertyPath: wateringAnimationTimer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5385878744333931042, guid: 4d6473ee7c366b84aa90901805a75daa, type: 3}
       propertyPath: m_RootOrder
       value: 6

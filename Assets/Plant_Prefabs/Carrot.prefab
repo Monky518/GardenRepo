@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4750627920784952457}
   - component: {fileID: 4750627920784952458}
   - component: {fileID: 3255106010769352610}
+  - component: {fileID: 9031808948665705046}
   m_Layer: 0
   m_Name: Carrot
   m_TagString: PlantOne
@@ -101,8 +102,30 @@ MonoBehaviour:
   plantGrowing: {fileID: 21300000, guid: 721ecccc838786b4892451db938fa48f, type: 3}
   plantBloom: {fileID: 21300000, guid: 36c63e8d48acf404baf17baea7b1773c, type: 3}
   plantWilting: {fileID: 21300000, guid: b7139f85304edd446a862ec58532a7b2, type: 3}
+  plantDuration: 16
   sproutDuration: 2
   growingDuration: 5
   bloomDuration: 3
   unwateredDuration: 2
   watered: 0
+  wateringAnimation: {fileID: 9100000, guid: 19da3fe7a5c7eb64bbb25ce03e1ccf1e, type: 2}
+--- !u!95 &9031808948665705046
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4750627920784952459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

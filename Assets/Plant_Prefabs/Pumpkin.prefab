@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5385878744333931042}
   - component: {fileID: 5385878744333931045}
   - component: {fileID: 502846403848054483}
+  - component: {fileID: 2124104252117466183}
   m_Layer: 0
   m_Name: Pumpkin
   m_TagString: PlantOne
@@ -101,8 +102,30 @@ MonoBehaviour:
   plantGrowing: {fileID: 21300000, guid: 122f14584f6d831439b5c865b39e9572, type: 3}
   plantBloom: {fileID: 21300000, guid: 8238dec5215f41446948e773e605b1ca, type: 3}
   plantWilting: {fileID: 21300000, guid: b7139f85304edd446a862ec58532a7b2, type: 3}
+  plantDuration: 16
   sproutDuration: 2
   growingDuration: 3
   bloomDuration: 1
   unwateredDuration: 2
   watered: 0
+  wateringAnimation: {fileID: 9100000, guid: 19da3fe7a5c7eb64bbb25ce03e1ccf1e, type: 2}
+--- !u!95 &2124104252117466183
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385878744333931044}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

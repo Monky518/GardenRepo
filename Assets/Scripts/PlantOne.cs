@@ -26,7 +26,7 @@ public class PlantOne : MonoBehaviour
 
     public int sproutDuration = 2;
     private int sproutTimer = 0;
-    
+
     public int growingDuration = 5;
     private int growingTimer = 0;
 
@@ -37,12 +37,15 @@ public class PlantOne : MonoBehaviour
     private int unwateredTimer = 0;
 
     public bool watered = false;
+    public RuntimeAnimatorController wateringAnimation;
+    public float wateringAnimationTimer;
+
 
     void Update()
     {
         Debug.Log(currentStage);
     }
-    
+
     public void NewDay()
     {
         plantTimer++;
@@ -168,6 +171,20 @@ public class PlantOne : MonoBehaviour
     public void Watering()
     {
         watered = true;
+        StartCoroutine(WateringTimer());
+    }
+
+    public IEnumerator WateringTimer()
+    {
+        //watering animation
+        transform.GetComponent<Animator>().runtimeAnimatorController = wateringAnimation;
+        transform.GetComponent<Animator>().enabled = true;
+
+        //waiting for the animation to end
+        yield return new WaitForSeconds(wateringAnimationTimer);
+
+        //watering animation is done
+        transform.GetComponent<Animator>().enabled = false;
     }
 
     void UpdateSprite()

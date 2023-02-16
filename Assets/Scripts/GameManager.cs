@@ -49,23 +49,28 @@ public class GameManager : MonoBehaviour
             counter++;
         }
 
+        foreach (Rect pr in plantRect)
+        {
+            Debug.Log(pr);
+        }
+
         counter = 0;
         foreach (Rect pr in plantRect)
         {
             if (pr.Overlaps(playerRect))
             {
                 //water plant
-                if (plantsOne[counter] != null)
+                Rect por = plantsOne[counter].transform.GetComponent<PlantOne>().PlantRectUpdate();
+                Rect ptr = plantsTwo[counter].transform.GetComponent<PlantTwo>().PlantRectUpdate();
+                if (pr == por)
                 {
+                    //plantOne is watered
                     plantsOne[counter].transform.GetComponent<PlantOne>().Watering();
                 }
-                else if (plantsTwo[counter] != null)
+                else if (pr == ptr)
                 {
+                    //plantTwo is watered
                     plantsTwo[counter].transform.GetComponent<PlantTwo>().Watering();
-                }
-                else
-                {
-                    Debug.Log("Could not retrace steps for watering plant");
                 }
             }
 

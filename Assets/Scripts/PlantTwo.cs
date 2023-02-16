@@ -35,6 +35,8 @@ public class PlantTwo : MonoBehaviour
     private int unwateredTimer = 0;
 
     public bool watered = false;
+    public RuntimeAnimatorController wateringAnimation;
+    public float wateringAnimationTimer;
 
     void Update()
     {
@@ -53,26 +55,12 @@ public class PlantTwo : MonoBehaviour
 
                 //sprout timer
                 sproutTimer++;
-                if (sproutTimer == sproutDuration)
+                if (sproutTimer >= sproutDuration)
                 {
                     previousStage = Stage.Growing;
                     currentStage = Stage.Growing;
                     UpdateSprite();
                 }
-            }
-            else
-            {
-                //wilting
-                unwateredTimer--;
-                if (unwateredTimer <= 0)
-                {
-                    //no previous stage when wilting
-                    currentStage = Stage.Wilting;
-                    UpdateSprite();
-                }
-
-                //prep a recovery day for growing plant
-                sproutTimer--;
             }
         }
         else if (currentStage == Stage.Growing)
@@ -85,7 +73,7 @@ public class PlantTwo : MonoBehaviour
 
                 //growing timer
                 growingTimer++;
-                if (growingTimer == growingDuration)
+                if (growingTimer >= growingDuration)
                 {
                     previousStage = Stage.Bloom;
                     currentStage = Stage.Bloom;
@@ -95,16 +83,16 @@ public class PlantTwo : MonoBehaviour
             else
             {
                 //wilting
-                unwateredTimer--;
-                if (unwateredTimer <= 0)
+                unwateredTimer++;
+                if (unwateredTimer >= unwateredDuration)
                 {
                     //no previous stage when wilting
                     currentStage = Stage.Wilting;
                     UpdateSprite();
                 }
 
-                //prep a recovery day for growing plant
-                growingTimer--;
+                ///prep a recovery day for growing plant
+                //growingTimer--;
             }
         }
         else if (currentStage == Stage.Bloom)
@@ -117,7 +105,7 @@ public class PlantTwo : MonoBehaviour
 
                 //blooming timer
                 bloomTimer++;
-                if (bloomTimer == bloomDuration)
+                if (bloomTimer >= bloomDuration)
                 {
                     currentStage = Stage.Dead;
                     UpdateSprite();
@@ -126,8 +114,8 @@ public class PlantTwo : MonoBehaviour
             else
             {
                 //wilting
-                unwateredTimer--;
-                if (unwateredTimer <= 0)
+                unwateredTimer++;
+                if (unwateredTimer >= unwateredDuration)
                 {
                     //no previous stage when wilting
                     currentStage = Stage.Wilting;
@@ -136,7 +124,7 @@ public class PlantTwo : MonoBehaviour
 
                 //still subtract a bloom day with death chance
                 bloomTimer++;
-                if (bloomTimer == bloomDuration)
+                if (bloomTimer >= bloomDuration)
                 {
                     currentStage = Stage.Dead;
                     UpdateSprite();
@@ -166,6 +154,20 @@ public class PlantTwo : MonoBehaviour
     public void Watering()
     {
         watered = true;
+        StartCoroutine(WateringTimer());
+    }
+
+    public IEnumerator WateringTimer()
+    {
+        //watering animation
+        transform.GetComponent<Animator>().runtimeAnimatorController = wateringAnimation;
+        transform.GetComponent<Animator>().enabled = true;
+
+        //waiting for the animation to end
+        yield return new WaitForSeconds(wateringAnimationTimer);
+
+        //watering animation is done
+        transform.GetComponent<Animator>().enabled = false;
     }
 
     void UpdateSprite()
@@ -198,7 +200,7 @@ public class PlantTwo : MonoBehaviour
 
     public Rect PlantRectUpdate()
     {
-        Rect plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
+        Rect plantRect = new Rect(transform.position, GameObject.Find("Bottom").transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
         return plantRect;
     }
 }

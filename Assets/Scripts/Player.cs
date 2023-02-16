@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
     public Rect PlayerRectUpdate()
     {
-        Rect playerRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
+        Rect playerRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
         return playerRect;
     }
 }

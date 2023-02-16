@@ -72,7 +72,7 @@ public class PlantOne : MonoBehaviour
 
                 //sprout timer
                 sproutTimer++;
-                if (sproutTimer == sproutDuration)
+                if (sproutTimer >= sproutDuration)
                 {
                     previousStage = Stage.Growing;
                     currentStage = Stage.Growing;
@@ -89,7 +89,7 @@ public class PlantOne : MonoBehaviour
 
                     //growing timer
                     growingTimer++;
-                    if (growingTimer == growingDuration)
+                    if (growingTimer >= growingDuration)
                     {
                         previousStage = Stage.Bloom;
                         currentStage = Stage.Bloom;
@@ -100,7 +100,7 @@ public class PlantOne : MonoBehaviour
                 {
                     //wilting
                     unwateredTimer++;
-                    if (unwateredTimer == unwateredDuration)
+                    if (unwateredTimer >= unwateredDuration)
                     {
                         //no previous stage when wilting
                         currentStage = Stage.Wilting;
@@ -121,7 +121,7 @@ public class PlantOne : MonoBehaviour
 
                     //blooming timer
                     bloomTimer++;
-                    if (bloomTimer == bloomDuration)
+                    if (bloomTimer >= bloomDuration)
                     {
                         currentStage = Stage.Dead;
                         UpdateSprite();
@@ -131,7 +131,7 @@ public class PlantOne : MonoBehaviour
                 {
                     //wilting
                     unwateredTimer++;
-                    if (unwateredTimer == unwateredDuration)
+                    if (unwateredTimer >= unwateredDuration)
                     {
                         //no previous stage when wilting
                         currentStage = Stage.Wilting;
@@ -140,7 +140,7 @@ public class PlantOne : MonoBehaviour
 
                     //still subtract a bloom day with death chance
                     bloomTimer++;
-                    if (bloomTimer == bloomDuration)
+                    if (bloomTimer >= bloomDuration)
                     {
                         currentStage = Stage.Dead;
                         UpdateSprite();
@@ -225,7 +225,7 @@ public class PlantOne : MonoBehaviour
 
     public Rect PlantRectUpdate()
     {
-        Rect plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 4);
+        Rect plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
         return plantRect;
     }
 }

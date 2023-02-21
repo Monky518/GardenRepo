@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlantTwo : MonoBehaviour
+public class Plant : MonoBehaviour
 {
     public Sprite plantSprout;
     public Sprite plantGrowing;
@@ -33,11 +33,6 @@ public class PlantTwo : MonoBehaviour
     public bool watered = false;
     public RuntimeAnimatorController wateringAnimation;
     public float wateringAnimationTimer;
-
-    void Update()
-    {
-        Debug.Log(currentStage);
-    }
 
     public void NewDay()
     {
@@ -207,11 +202,13 @@ public class PlantTwo : MonoBehaviour
         if (gameObject.tag == "plantTwo")
         {
             Rect plantRect = new Rect(transform.position, GameObject.Find("gameObject.name/Bottom").transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
+            Debug.Log("Plant rect: " + plantRect);
             return plantRect;
         }
         else
         {
             Rect plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
+            Debug.Log("Plant rect: " + plantRect);
             return plantRect;
         }
     }

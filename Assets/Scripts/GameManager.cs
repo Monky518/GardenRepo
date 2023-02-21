@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             Watering();
+            Debug.Log("You pressed space!");
         }
     }
 
@@ -18,14 +19,14 @@ public class GameManager : MonoBehaviour
         GameObject[] plantsOne = GameObject.FindGameObjectsWithTag("PlantOne");
         foreach (GameObject o in plantsOne)
         {
-            o.GetComponent<PlantOne>().NewDay();
+            o.GetComponent<Plant>().NewDay();
         }
 
         //two tall plants
         GameObject[] plantsTwo = GameObject.FindGameObjectsWithTag("PlantTwo");
         foreach (GameObject o in plantsTwo)
         {
-            o.GetComponent<PlantTwo>().NewDay();
+            o.GetComponent<Plant>().NewDay();
         }
     }
 
@@ -33,66 +34,51 @@ public class GameManager : MonoBehaviour
     {
         //sets player rect
         Rect playerRect = GameObject.Find("Player").transform.GetComponent<Player>().PlayerRectUpdate();
+
         //finds all plants
         GameObject[] plantsOne = GameObject.FindGameObjectsWithTag("PlantOne");
         GameObject[] plantsTwo = GameObject.FindGameObjectsWithTag("PlantTwo");
 
         //sets plantRect[] length
         Rect[] plantRect = new Rect[plantsOne.Length + plantsTwo.Length];
-        //finds all plant rects and sees if they overlap with player
+        Debug.Log("Total plants found: " + plantRect.Length);
+
+        //finds all plant rects
         int counter = 0;
+        foreach (GameObject go in plantsOne)
+        {
+            plantRect[counter] = go.GetComponent<Plant>().PlantRectUpdate();
+        }
+        foreach (GameObject gt in plantsOne)
+        {
+            plantRect[counter] = gt.GetComponent<Plant>().PlantRectUpdate();
+        }
+
+        //sees if any plant rects overlap with player
+        counter = 0;
         foreach (Rect pr in plantRect)
         {
-            pr = po.transform.GetComponent<PlantOne>().PlantRectUpdate();
             //checks if it overlaps
             if (pr.Overlaps(playerRect))
             {
                 //water plant
-                Rect por = plantsOne[counter].GetComponent<Plant>().PlantRectUpdate();
-                Rect ptr = plantsTwo[counter].GetComponent<Plant>().PlantRectUpdate();
-                if (plantRect[counter] == por)
+                if (counter >= plantsOne.Length)
                 {
-                    //plantOne is watered
-                    plantsOne[counter].transform.GetComponent<Plant>().Watering();
+                    //plantTwo watering time
+                    plantsTwo[counter - plantsOne.Length].GetComponent<Plant>().Watering();
                 }
-                else if (plantRect[counter] == ptr)
+                else
                 {
-                    //plantTwo is watered
-                    plantsTwo[counter].transform.GetComponent<Plant>().Watering();
+                    //plantOne watering time
+                    plantsOne[counter].GetComponent<Plant>().Watering();
                 }
+                
+                Debug.Log("Watering time!");
             }
-            counter++;
-        }
-
-
-
-
-        foreach (GameObject pt in plantsTwo)
-        {
-            plantRect[counter] = pt.transform.GetComponent<PlantTwo>().PlantRectUpdate();
-            counter++;
-        }
-        counter = 0;
-        foreach (Rect pr in plantRect)
-        {
-            if (pr.Overlaps(playerRect))
+            else
             {
-                //water plant
-                Rect por = plantsOne[counter].GetComponent<PlantOne>().PlantRectUpdate();
-                Rect ptr = plantsTwo[counter].GetComponent<PlantTwo>().PlantRectUpdate();
-                if (pr == por)
-                {
-                    //plantOne is watered
-                    plantsOne[counter].transform.GetComponent<PlantOne>().Watering();
-                }
-                else if (pr == ptr)
-                {
-                    //plantTwo is watered
-                    plantsTwo[counter].transform.GetComponent<PlantTwo>().Watering();
-                }
+                Debug.Log("Not this plant");
             }
-
-            //increase new counter
             counter++;
         }
     }

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5385878744333931042}
   - component: {fileID: 5385878744333931045}
-  - component: {fileID: 502846403848054483}
   - component: {fileID: 2124104252117466183}
+  - component: {fileID: 3191065047756022477}
   m_Layer: 0
   m_Name: Pumpkin
   m_TagString: PlantOne
@@ -86,29 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &502846403848054483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5385878744333931044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e35875f23a477f4f83f12a6aa6b2791, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plantSprout: {fileID: 21300000, guid: 5384652b2e997a14db7a9d8d61c2747f, type: 3}
-  plantGrowing: {fileID: 21300000, guid: 122f14584f6d831439b5c865b39e9572, type: 3}
-  plantBloom: {fileID: 21300000, guid: 8238dec5215f41446948e773e605b1ca, type: 3}
-  plantWilting: {fileID: 21300000, guid: b7139f85304edd446a862ec58532a7b2, type: 3}
-  plantDuration: 16
-  sproutDuration: 2
-  growingDuration: 3
-  bloomDuration: 1
-  unwateredDuration: 2
-  watered: 0
-  wateringAnimation: {fileID: 9100000, guid: 19da3fe7a5c7eb64bbb25ce03e1ccf1e, type: 2}
 --- !u!95 &2124104252117466183
 Animator:
   serializedVersion: 4
@@ -129,3 +106,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3191065047756022477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385878744333931044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3ca76a46563f846a4893e060ac69b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantSprout: {fileID: 21300000, guid: 5384652b2e997a14db7a9d8d61c2747f, type: 3}
+  plantGrowing: {fileID: 21300000, guid: 122f14584f6d831439b5c865b39e9572, type: 3}
+  plantBloomTop: {fileID: 0}
+  plantBloomBottom: {fileID: 21300000, guid: 8238dec5215f41446948e773e605b1ca, type: 3}
+  plantWilting: {fileID: 21300000, guid: b7139f85304edd446a862ec58532a7b2, type: 3}
+  sproutDuration: 2
+  growingDuration: 7
+  bloomDuration: 10
+  unwateredDuration: 2
+  plantTimer: 0
+  unwateredTimer: 0
+  watered: 0
+  wateringAnimation: {fileID: 9100000, guid: 19da3fe7a5c7eb64bbb25ce03e1ccf1e, type: 2}
+  wateringAnimationTimer: 1

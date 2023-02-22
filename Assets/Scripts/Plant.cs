@@ -145,7 +145,7 @@ public class Plant : MonoBehaviour
         }
         else if (currentStage == Stage.Dead)
         {
-            Debug.Log("Why are you still alive? " + transform.position);
+            Debug.Log("Why are you still alive?: " + transform.position);
             UpdateSprite();
         }
     }
@@ -199,16 +199,16 @@ public class Plant : MonoBehaviour
 
     public Rect PlantRectUpdate()
     {
-        if (gameObject.tag == "plantTwo")
+        if (plantBloomTop != null)
         {
-            Rect plantRect = new Rect(transform.position, GameObject.Find("gameObject.name/Bottom").transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
-            Debug.Log("Plant rect: " + plantRect);
+            Rect plantRect = new Rect(transform.position, GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
+            Debug.Log("PlantTwo rect: " + plantRect);
             return plantRect;
         }
         else
         {
             Rect plantRect = new Rect(transform.position, transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
-            Debug.Log("Plant rect: " + plantRect);
+            Debug.Log("PlantOne rect: " + plantRect);
             return plantRect;
         }
     }

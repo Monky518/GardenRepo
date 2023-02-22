@@ -49,10 +49,11 @@ public class GameManager : MonoBehaviour
         {
             plantRect[counter] = go.GetComponent<Plant>().PlantRectUpdate();
         }
-        foreach (GameObject gt in plantsOne)
+        foreach (GameObject gt in plantsTwo)
         {
             plantRect[counter] = gt.GetComponent<Plant>().PlantRectUpdate();
         }
+        Debug.Log("All plantRects: " + plantRect);
 
         //sees if any plant rects overlap with player
         counter = 0;

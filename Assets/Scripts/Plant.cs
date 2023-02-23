@@ -106,7 +106,7 @@ public class Plant : MonoBehaviour
                 plantTimer++;
                 if (plantTimer >= bloomDuration)
                 {
-                    currentStage = Stage.Dead;
+                    currentStage = Stage.Wilting;
                     UpdateSprite();
                 }
             }
@@ -132,15 +132,24 @@ public class Plant : MonoBehaviour
         }
         else if (currentStage == Stage.Wilting)
         {
-            if (watered)
-            {
-                currentStage = previousStage;
-            }
-            else
+            if (plantTimer >= bloomDuration)
             {
                 //bye bye plant
                 currentStage = Stage.Dead;
                 UpdateSprite();
+            }
+            else
+            {
+                if (watered)
+                {
+                    currentStage = previousStage;
+                }
+                else
+                {
+                    //bye bye plant
+                    currentStage = Stage.Dead;
+                    UpdateSprite();
+                }
             }
         }
         else if (currentStage == Stage.Dead)
@@ -158,42 +167,101 @@ public class Plant : MonoBehaviour
 
     public IEnumerator WateringTimer()
     {
-        //watering animation
-        transform.GetComponent<Animator>().runtimeAnimatorController = wateringAnimation;
-        transform.GetComponent<Animator>().enabled = true;
+        if (plantBloomTop == null)
+        {
+            //watering animation for one tall
+            transform.GetComponent<Animator>().runtimeAnimatorController = wateringAnimation;
+            transform.GetComponent<Animator>().enabled = true;
+        }
+        else if (currentStage == Stage.Bloom)
+        {
+            //bottom part
+            GameObject.Find("Bottom").transform.GetComponent<Animator>().runtimeAnimatorController = wateringAnimation;
+            GameObject.Find("Bottom").transform.GetComponent<Animator>().enabled = true;
+
+            //top part
+            GameObject.Find("Top").transform.GetComponent<Animator>().runtimeAnimatorController = wateringAnimation;
+            GameObject.Find("Top").transform.GetComponent<Animator>().enabled = true;
+        }
+        else
+        {
+            //bottom part
+            GameObject.Find("Bottom").transform.GetComponent<Animator>().runtimeAnimatorController = wateringAnimation;
+            GameObject.Find("Bottom").transform.GetComponent<Animator>().enabled = true;
+        }
 
         //waiting for the animation to end
         yield return new WaitForSeconds(wateringAnimationTimer);
 
-        //watering animation is done
-        transform.GetComponent<Animator>().enabled = false;
+        if (plantBloomTop == null)
+        {
+            //watering animation is done for one tall
+            transform.GetComponent<Animator>().enabled = false;
+        }
+        else if (currentStage == Stage.Bloom)
+        {
+            //watering animation is done
+            GameObject.Find("Bottom").transform.GetComponent<Animator>().enabled = false;
+            GameObject.Find("Top").transform.GetComponent<Animator>().enabled = false;
+        }
+        else
+        {
+            //watering animation is done
+            GameObject.Find("Bottom").transform.GetComponent<Animator>().enabled = false;
+        }
     }
 
     void UpdateSprite()
     {
-        if (currentStage == Stage.Sprout)
+        if (plantBloomTop != null)
         {
-            GameObject.Find("gameObject.name/Bottom").GetComponent<SpriteRenderer>().sprite = plantSprout;
-        }
-        else if (currentStage == Stage.Growing)
-        {
-            GameObject.Find("gameObject.name/Bottom").GetComponent<SpriteRenderer>().sprite = plantGrowing;
-        }
-        else if (currentStage == Stage.Bloom)
-        {
-            GameObject.Find("gameObject.name/Bottom").GetComponent<SpriteRenderer>().sprite = plantBloomBottom;
-            if (plantBloomTop != null)
+            if (currentStage == Stage.Sprout)
             {
+                GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite = plantSprout;
+                GameObject.Find("Top").GetComponent<SpriteRenderer>().sprite = null;
+            }
+            else if (currentStage == Stage.Growing)
+            {
+                GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite = plantGrowing;
+                GameObject.Find("Top").GetComponent<SpriteRenderer>().sprite = null;
+            }
+            else if (currentStage == Stage.Bloom)
+            {
+                GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite = plantBloomBottom;
                 GameObject.Find("Top").GetComponent<SpriteRenderer>().sprite = plantBloomTop;
             }
+            else if (currentStage == Stage.Wilting)
+            {
+                GameObject.Find("Bottom").GetComponent<SpriteRenderer>().sprite = plantWilting;
+                GameObject.Find("Top").GetComponent<SpriteRenderer>().sprite = null;
+            }
+            else if (currentStage == Stage.Dead)
+            {
+                Destroy(gameObject);
+            }
         }
-        else if (currentStage == Stage.Wilting)
+        else
         {
-            GameObject.Find("gameObject.name/Bottom").GetComponent<SpriteRenderer>().sprite = plantWilting;
-        }
-        else if (currentStage == Stage.Dead)
-        {
-            Destroy(gameObject);
+            if (currentStage == Stage.Sprout)
+            {
+                transform.GetComponent<SpriteRenderer>().sprite = plantSprout;
+            }
+            else if (currentStage == Stage.Growing)
+            {
+                transform.GetComponent<SpriteRenderer>().sprite = plantGrowing;
+            }
+            else if (currentStage == Stage.Bloom)
+            {
+                transform.GetComponent<SpriteRenderer>().sprite = plantBloomBottom;
+            }
+            else if (currentStage == Stage.Wilting)
+            {
+                transform.GetComponent<SpriteRenderer>().sprite = plantWilting;
+            }
+            else if (currentStage == Stage.Dead)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

@@ -45,42 +45,56 @@ public class GameManager : MonoBehaviour
 
         //finds all plant rects
         int counter = 0;
-        foreach (GameObject go in plantsOne)
+        foreach (Rect pr in plantRect)
         {
-            plantRect[counter] = go.GetComponent<Plant>().PlantRectUpdate();
+            if (counter < plantsOne.Length)
+            {
+                plantRect[counter] = plantsOne[counter].GetComponent<Plant>().PlantRectUpdate();
+            }
+            else
+            {
+                plantRect[counter] = plantsTwo[counter - plantsOne.Length].GetComponent<Plant>().PlantRectUpdate();
+            }
+            counter++;
         }
-        foreach (GameObject gt in plantsTwo)
-        {
-            plantRect[counter] = gt.GetComponent<Plant>().PlantRectUpdate();
-        }
+
         Debug.Log("All plantRects: " + plantRect);
 
         //sees if any plant rects overlap with player
-        counter = 0;
         foreach (Rect pr in plantRect)
         {
             //checks if it overlaps
             if (pr.Overlaps(playerRect))
             {
-                //water plant
-                if (counter >= plantsOne.Length)
+                //checks all plantsOne
+                foreach (GameObject po in plantsOne)
                 {
-                    //plantTwo watering time
-                    plantsTwo[counter - plantsOne.Length].GetComponent<Plant>().Watering();
+                    Rect test = po.GetComponent<Plant>().PlantRectUpdate();
+                    if (pr == test)
+                    {
+                        po.GetComponent<Plant>().Watering();
+                        Debug.Log("Watering time!");
+                        break;
+                    }
                 }
-                else
+
+                //checks all plantsTwo
+                foreach (GameObject pt in plantsTwo)
                 {
-                    //plantOne watering time
-                    plantsOne[counter].GetComponent<Plant>().Watering();
+                    Rect test = pt.GetComponent<Plant>().PlantRectUpdate();
+                    if (pr == test)
+                    {
+                        pt.GetComponent<Plant>().Watering();
+                        Debug.Log("Watering time!");
+                        break;
+                    }
                 }
-                
-                Debug.Log("Watering time!");
+
             }
             else
             {
                 Debug.Log("Not this plant");
             }
-            counter++;
         }
     }
 }

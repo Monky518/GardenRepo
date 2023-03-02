@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject newPlantSelected;
+    
     void Update()
     {
         if (Input.GetKeyDown("space"))
         {
             Watering();
             Debug.Log("You pressed space!");
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            PlantSeedPlacement();
         }
     }
 
@@ -95,6 +102,16 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Not this plant");
             }
+        }
+    }
+
+    void PlantSeedPlacement()
+    {
+        if (newPlantSelected != null)
+        {
+            
+            
+            //Instantiate(newPlantSelected, new Vector2(#, # + 0.75f, 0);
         }
     }
 }

@@ -109,9 +109,30 @@ public class GameManager : MonoBehaviour
     {
         if (newPlantSelected != null)
         {
-            
-            
-            //Instantiate(newPlantSelected, new Vector2(#, # + 0.75f, 0);
+            //sets moust rect
+            Vector3 mousePos = Input.mousePosition;
+            Rect mouse = new Rect(mousePos.x, mousePos.y, 0.5f, 0.5f);
+
+            //find all flower pot gameobjects
+            GameObject[] flowerPot = GameObject.FindGameObjectsWithTag("FlowerPot");
+
+            //sets all flower pot rects
+            Rect test = new Rect(0, 0, 1, 1);
+
+            //check for overlap
+            for (int i = 0; i < flowerPot.Length; i++)
+            {
+                //sets new test rect
+                test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
+                
+                //checks where player selected
+                if (test.Overlaps(mouse))
+                {
+                    Instantiate(newPlantSelected, new Vector2(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f), Quaternion.identity);
+                    newPlantSelected = null;
+                    break;
+                }
+            }
         }
     }
 }

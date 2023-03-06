@@ -109,8 +109,9 @@ public class GameManager : MonoBehaviour
     {
         if (newPlantSelected != null)
         {
-            //sets moust rect
-            Vector3 mousePos = Input.mousePosition;
+            //sets moust rect by finding position, setting it into camera bounds, and setting the rect accordingly
+            Vector3 nastyMousePos = Input.mousePosition;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(nastyMousePos.x, nastyMousePos.y, 0));
             Rect mouse = new Rect(mousePos.x, mousePos.y, 0.5f, 0.5f);
 
             //find all flower pot gameobjects
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < flowerPot.Length; i++)
             {
                 //sets new test rect
-                test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
+                test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size);
                 
                 //checks where player selected
                 if (test.Overlaps(mouse))

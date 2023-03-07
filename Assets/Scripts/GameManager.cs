@@ -120,18 +120,33 @@ public class GameManager : MonoBehaviour
             //sets all flower pot rects
             Rect test = new Rect(0, 0, 1, 1);
 
-            //check for overlap
-            for (int i = 0; i < flowerPot.Length; i++)
+            //test for another plant already in the pot
+            bool anotherPlant = false;
+            GameObject[] allPlants = GameObject.FindGameObjectsWithTag("Plant");
+            foreach (GameObject ap in allPlants)
             {
-                //sets new test rect
-                test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size);
-                
-                //checks where player selected
-                if (test.Overlaps(mouse))
+                if (ap.transform.position == new Vector2(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f))
                 {
-                    Instantiate(newPlantSelected, new Vector2(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f), Quaternion.identity);
-                    newPlantSelected = null;
+                    anotherPlant = true;
                     break;
+                }
+            }
+
+            if (!anotherPlant)
+            {
+                //check for overlap
+                for (int i = 0; i < flowerPot.Length; i++)
+                {
+                    //sets new test rect
+                    test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size);
+
+                    //checks where player selected
+                    if (test.Overlaps(mouse))
+                    {
+                        Instantiate(newPlantSelected, new Vector2(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f), Quaternion.identity);
+                        newPlantSelected = null;
+                        break;
+                    }
                 }
             }
         }

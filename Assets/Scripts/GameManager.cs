@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("You pressed space!");
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && newPlantSelected != null)
         {
             PlantSeedPlacement();
         }
@@ -107,47 +107,42 @@ public class GameManager : MonoBehaviour
 
     void PlantSeedPlacement()
     {
-        if (newPlantSelected != null)
+        //sets moust rect by finding position, setting it into camera bounds, and setting the rect accordingly
+        Vector3 nastyMousePos = Input.mousePosition;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(nastyMousePos.x, nastyMousePos.y, 0));
+        Rect mouse = new Rect(mousePos.x, mousePos.y, 0.5f, 0.5f);
+
+        //find all flower pot gameobjects
+        GameObject[] flowerPot = GameObject.FindGameObjectsWithTag("FlowerPot");
+
+        //sets all flower pot rects
+        Rect test = new Rect(0, 0, 1, 1);
+
+        //check for overlap
+        for (int i = 0; i < flowerPot.Length; i++)
         {
-            //sets moust rect by finding position, setting it into camera bounds, and setting the rect accordingly
-            Vector3 nastyMousePos = Input.mousePosition;
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(nastyMousePos.x, nastyMousePos.y, 0));
-            Rect mouse = new Rect(mousePos.x, mousePos.y, 0.5f, 0.5f);
-
-            //find all flower pot gameobjects
-            GameObject[] flowerPot = GameObject.FindGameObjectsWithTag("FlowerPot");
-
-            //sets all flower pot rects
-            Rect test = new Rect(0, 0, 1, 1);
+            //sets new test rect
+            test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size);
 
             //test for another plant already in the pot
             bool anotherPlant = false;
             GameObject[] allPlants = GameObject.FindGameObjectsWithTag("Plant");
             foreach (GameObject ap in allPlants)
             {
-                if (ap.transform.position == new Vector2(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f))
+                if (ap.transform.position == new Vector3(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f, 0))
                 {
                     anotherPlant = true;
+                    Debug.Log("Another plant is here");
                     break;
                 }
             }
 
-            if (!anotherPlant)
+            //checks where player selected
+            if (test.Overlaps(mouse) && !anotherPlant)
             {
-                //check for overlap
-                for (int i = 0; i < flowerPot.Length; i++)
-                {
-                    //sets new test rect
-                    test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size);
-
-                    //checks where player selected
-                    if (test.Overlaps(mouse))
-                    {
-                        Instantiate(newPlantSelected, new Vector2(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f), Quaternion.identity);
-                        newPlantSelected = null;
-                        break;
-                    }
-                }
+                Instantiate(newPlantSelected, new Vector2(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f), Quaternion.identity);
+                newPlantSelected = null;
+                break;
             }
         }
     }

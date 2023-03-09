@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 1515786509728955001}
   m_Layer: 0
   m_Name: Sunflower
-  m_TagString: PlantTwo
+  m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

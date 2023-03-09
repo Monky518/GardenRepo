@@ -798,8 +798,9 @@ GameObject:
   - component: {fileID: 579684152}
   - component: {fileID: 579684151}
   - component: {fileID: 579684150}
+  - component: {fileID: 579684154}
   m_Layer: 5
-  m_Name: Corn
+  m_Name: Corn Seed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -933,6 +934,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579684148}
   m_CullTransparentMesh: 1
+--- !u!95 &579684154
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579684148}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &592158536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,6 +2048,7 @@ GameObject:
   - component: {fileID: 1048652116}
   - component: {fileID: 1048652115}
   - component: {fileID: 1048652114}
+  - component: {fileID: 1048652118}
   m_Layer: 5
   m_Name: Carrot Seed
   m_TagString: Untagged
@@ -2162,6 +2184,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048652112}
   m_CullTransparentMesh: 1
+--- !u!95 &1048652118
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048652112}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1135671927
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,6 +2301,7 @@ GameObject:
   - component: {fileID: 1166693966}
   - component: {fileID: 1166693965}
   - component: {fileID: 1166693964}
+  - component: {fileID: 1166693968}
   m_Layer: 5
   m_Name: Tomato Seed
   m_TagString: Untagged
@@ -2394,6 +2437,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166693962}
   m_CullTransparentMesh: 1
+--- !u!95 &1166693968
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166693962}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1192731557
 GameObject:
   m_ObjectHideFlags: 0
@@ -2992,6 +3055,7 @@ GameObject:
   - component: {fileID: 1508907409}
   - component: {fileID: 1508907408}
   - component: {fileID: 1508907407}
+  - component: {fileID: 1508907411}
   m_Layer: 5
   m_Name: Wheat Seed
   m_TagString: Untagged
@@ -3127,6 +3191,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508907405}
   m_CullTransparentMesh: 1
+--- !u!95 &1508907411
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508907405}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1512282678
 GameObject:
   m_ObjectHideFlags: 0

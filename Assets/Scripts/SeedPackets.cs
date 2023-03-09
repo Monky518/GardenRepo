@@ -8,7 +8,16 @@ public class SeedPackets : MonoBehaviour
 
     public void NewPlant()
     {
-        GameObject.Find("GameManager").GetComponent<GameManager>().newPlantSelected = plantSeed;
-        Debug.Log("Pushed button");
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().newPlantSelected == plantSeed)
+        {
+            //deselect plant
+            GameObject.Find("GameManager").GetComponent<GameManager>().newPlantSelected = null;
+            Debug.Log("No more plant");
+        }
+        else
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().newPlantSelected = plantSeed;
+            Debug.Log("Selected plant: " + plantSeed);
+        }
     }
 }

@@ -16,6 +16,7 @@ public class SeedPackets : MonoBehaviour
         }
         else
         {
+            //sets plant type
             GameObject.Find("GameManager").GetComponent<GameManager>().newPlantSelected = plantSeed;
             Debug.Log("Selected plant: " + plantSeed);
         }

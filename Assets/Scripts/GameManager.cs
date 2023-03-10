@@ -5,102 +5,60 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject newPlantSelected;
+    public bool wateringTime;
     
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        //I do not know how to make UI better buttons, so program them instead
+        if (Input.GetButtonDown("Fire1"))
         {
-            Watering();
-            Debug.Log("You pressed space!");
-        }
-
-        if (Input.GetButtonDown("Fire1") && newPlantSelected != null)
-        {
-            PlantSeedPlacement();
+            if (newPlantSelected != null)
+            {
+                PlantSeedPlacement();
+            }
+            else if (wateringTime)
+            {
+                Watering();
+            }
         }
     }
 
     public void NewDay()
     {
-        //one tall plants
-        GameObject[] plantsOne = GameObject.FindGameObjectsWithTag("PlantOne");
-        foreach (GameObject o in plantsOne)
+        //plants are getting old
+        GameObject[] plants = GameObject.FindGameObjectsWithTag("Plant");
+        foreach (GameObject p in plants)
         {
-            o.GetComponent<Plant>().NewDay();
-        }
-
-        //two tall plants
-        GameObject[] plantsTwo = GameObject.FindGameObjectsWithTag("PlantTwo");
-        foreach (GameObject o in plantsTwo)
-        {
-            o.GetComponent<Plant>().NewDay();
+            p.GetComponent<Plant>().NewDay();
         }
     }
 
-    public void Watering()
+    void Watering()
     {
         //sets player rect
         Rect playerRect = GameObject.Find("Player").transform.GetComponent<Player>().PlayerRectUpdate();
 
         //finds all plants
-        GameObject[] plantsOne = GameObject.FindGameObjectsWithTag("PlantOne");
-        GameObject[] plantsTwo = GameObject.FindGameObjectsWithTag("PlantTwo");
+        GameObject[] plants = GameObject.FindGameObjectsWithTag("Plant");
 
-        //sets plantRect[] length
-        Rect[] plantRect = new Rect[plantsOne.Length + plantsTwo.Length];
-        Debug.Log("Total plants found: " + plantRect.Length);
+        //sets test rect
+        Rect test = new Rect(0, 0, 1, 1);
 
-        //finds all plant rects
-        int counter = 0;
-        foreach (Rect pr in plantRect)
+        //check for overlap
+        for (int i = 0; i < plants.Length; i++)
         {
-            if (counter < plantsOne.Length)
-            {
-                plantRect[counter] = plantsOne[counter].GetComponent<Plant>().PlantRectUpdate();
-            }
-            else
-            {
-                plantRect[counter] = plantsTwo[counter - plantsOne.Length].GetComponent<Plant>().PlantRectUpdate();
-            }
-            counter++;
-        }
+            //sets new test rect
+            test = new Rect(plants[i].transform.position, plants[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size);
 
-        Debug.Log("All plantRects: " + plantRect);
-
-        //sees if any plant rects overlap with player
-        foreach (Rect pr in plantRect)
-        {
-            //checks if it overlaps
-            if (pr.Overlaps(playerRect))
+            //checks where player selected
+            if (test.Overlaps(playerRect))
             {
-                //checks all plantsOne
-                foreach (GameObject po in plantsOne)
-                {
-                    Rect test = po.GetComponent<Plant>().PlantRectUpdate();
-                    if (pr == test)
-                    {
-                        po.GetComponent<Plant>().Watering();
-                        Debug.Log("Watering time!");
-                        break;
-                    }
-                }
+                //sets plant as watered
+                plants[i].transform.GetComponent<Plant>().Watering();
 
-                //checks all plantsTwo
-                foreach (GameObject pt in plantsTwo)
-                {
-                    Rect test = pt.GetComponent<Plant>().PlantRectUpdate();
-                    if (pr == test)
-                    {
-                        pt.GetComponent<Plant>().Watering();
-                        Debug.Log("Watering time!");
-                        break;
-                    }
-                }
-
-            }
-            else
-            {
-                Debug.Log("Not this plant");
+                //breaks wateringTime
+                wateringTime = false;
+                break;
             }
         }
     }
@@ -118,14 +76,17 @@ public class GameManager : MonoBehaviour
         //sets all flower pot rects
         Rect test = new Rect(0, 0, 1, 1);
 
+        //temp placement
+        bool anotherPlant = false;
+
         //check for overlap
         for (int i = 0; i < flowerPot.Length; i++)
         {
             //sets new test rect
-            test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size);
+            test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
 
             //test for another plant already in the pot
-            bool anotherPlant = false;
+            //bool anotherPlant = false;
             GameObject[] allPlants = GameObject.FindGameObjectsWithTag("Plant");
             foreach (GameObject ap in allPlants)
             {
@@ -144,6 +105,11 @@ public class GameManager : MonoBehaviour
                 newPlantSelected = null;
                 break;
             }
+        }
+
+        if (newPlantSelected != null && !anotherPlant)
+        {
+            Debug.Log("Misclicked");
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject newPlantSelected;
-    public bool wateringTime;
+    public bool water;
     
     void Update()
     {
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
             {
                 PlantSeedPlacement();
             }
-            else if (wateringTime)
+            else if (water)
             {
                 Watering();
             }
@@ -33,13 +33,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void WateringTime()
+    {
+        if (water)
+        {
+            water = false;
+        }
+        else
+        {
+            water = true;
+        }
+    }
+
     void Watering()
     {
-        //sets player rect
-        Rect playerRect = GameObject.Find("Player").transform.GetComponent<Player>().PlayerRectUpdate();
+        //sets moust rect by finding position, setting it into camera bounds, and setting the rect accordingly
+        Vector3 nastyMousePos = Input.mousePosition;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(nastyMousePos.x, nastyMousePos.y, 0));
+        Rect mouse = new Rect(mousePos.x, mousePos.y, 0.5f, 0.5f);
 
         //finds all plants
         GameObject[] plants = GameObject.FindGameObjectsWithTag("Plant");
+        Debug.Log("Number of plants found: " + plants.Length);
 
         //sets test rect
         Rect test = new Rect(0, 0, 1, 1);
@@ -49,15 +64,18 @@ public class GameManager : MonoBehaviour
         {
             //sets new test rect
             test = new Rect(plants[i].transform.position, plants[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size);
+            Debug.Log("New test rect #" + i + ": " + test);
 
             //checks where player selected
-            if (test.Overlaps(playerRect))
+            if (test.Overlaps(mouse))
             {
+                Debug.Log("Watering Time!");
                 //sets plant as watered
                 plants[i].transform.GetComponent<Plant>().Watering();
 
-                //breaks wateringTime
-                wateringTime = false;
+                //breaks and sets false
+                water = false;
+                Debug.Log("Watering time is over");
                 break;
             }
         }
@@ -76,7 +94,7 @@ public class GameManager : MonoBehaviour
         //sets all flower pot rects
         Rect test = new Rect(0, 0, 1, 1);
 
-        //temp placement
+        //saving this for later
         bool anotherPlant = false;
 
         //check for overlap
@@ -86,14 +104,13 @@ public class GameManager : MonoBehaviour
             test = new Rect(flowerPot[i].transform.position, flowerPot[i].transform.GetComponent<SpriteRenderer>().sprite.bounds.size / 2);
 
             //test for another plant already in the pot
-            //bool anotherPlant = false;
+            anotherPlant = false;
             GameObject[] allPlants = GameObject.FindGameObjectsWithTag("Plant");
             foreach (GameObject ap in allPlants)
             {
                 if (ap.transform.position == new Vector3(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f, 0))
                 {
                     anotherPlant = true;
-                    Debug.Log("Another plant is here");
                     break;
                 }
             }
@@ -105,11 +122,6 @@ public class GameManager : MonoBehaviour
                 newPlantSelected = null;
                 break;
             }
-        }
-
-        if (newPlantSelected != null && !anotherPlant)
-        {
-            Debug.Log("Misclicked");
         }
     }
 }

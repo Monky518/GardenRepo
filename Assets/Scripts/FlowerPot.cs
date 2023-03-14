@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class FlowerPot : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Color originalColor;
+    public bool mouseHover = false;
+    
     void Start()
     {
-        
+        originalColor = GameObject.GetComponent<Renderer>().material.color;
+    }
+    
+    void OnMouseOver()
+    {
+        //change color
+        mouseHover = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnMouseExit()
     {
-        
+        //revert back
+        mouseHover = false;
     }
 }

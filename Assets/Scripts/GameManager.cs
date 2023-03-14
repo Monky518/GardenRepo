@@ -12,13 +12,13 @@ public class GameManager : MonoBehaviour
         //I do not know how to make UI better buttons, so program them instead
         if (Input.GetButtonDown("Fire1"))
         {
-            if (newPlantSelected != null)
-            {
-                PlantSeedPlacement();
-            }
-            else if (water)
+            if (water)
             {
                 Watering();
+            }
+            else if (newPlantSelected != null)
+            {
+                PlantSeedPlacement();
             }
         }
     }
@@ -73,8 +73,17 @@ public class GameManager : MonoBehaviour
                 //sets plant as watered
                 plants[i].transform.GetComponent<Plant>().Watering();
 
-                //breaks and sets false
-                water = false;
+                //holding shift to continue watering
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    Debug.Log("Watering time continues");
+                }
+                else
+                {
+                    water = false;
+                }
+
+                //breaks
                 Debug.Log("Watering time is over");
                 break;
             }
@@ -119,7 +128,16 @@ public class GameManager : MonoBehaviour
             if (test.Overlaps(mouse) && !anotherPlant)
             {
                 Instantiate(newPlantSelected, new Vector2(flowerPot[i].transform.position.x, flowerPot[i].transform.position.y + 0.75f), Quaternion.identity);
-                newPlantSelected = null;
+
+                //holding shift to continue planting
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    Debug.Log("Planting the most plants");
+                }
+                else
+                {
+                    newPlantSelected = null;
+                }
                 break;
             }
         }

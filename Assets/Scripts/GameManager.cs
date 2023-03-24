@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject newPlantSelected;
     public bool water;
+
+    public GameObject newSeed;
     
     void Update()
     {
@@ -35,12 +37,18 @@ public class GameManager : MonoBehaviour
 
     public void WateringTime()
     {
+        //lever time
         if (water)
         {
+            //no more watering time
             water = false;
         }
         else
         {
+            //deselect plant
+            newPlantSelected = null;
+
+            //watering
             water = true;
         }
     }

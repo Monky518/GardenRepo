@@ -6,21 +6,22 @@ public class Pollination : MonoBehaviour
 {
     public enum Genes
     {
-        Heterozygous,
-        homozygousDominant,
-        homozygousRecessive
+        Xx,
+        XX,
+        xx
     }
     public Genes[] pollenGenes;
     public Genes[] plantGenes;
-    public Genes[] newPlantGenes;
+    public Genes[] newSeedGenes;
 
     public enum FlowerType
     {
-        Rose
+        Rose,
+        None
     }
-    public FlowerType pollen;
-    public FlowerType plant;
-    public FlowerType newPlantSeed;
+    public FlowerType pollenType = FlowerType.None;
+    public FlowerType plantType = FlowerType.None;
+    public FlowerType newSeedType = FlowerType.None;
 
     void FindPollen()
     {
@@ -55,19 +56,19 @@ public class Pollination : MonoBehaviour
         //continue for all flowerTypes
 
 
-        if (newPlantSeed = FlowerType.Rose)
+        if (newSeedType == FlowerType.Rose)
         {
             //Red = 0, notYellow = 1, and White = 2
 
-            if (newPlantGenes[1] == Genes.homozygousRecessive)
+            if (newSeedGenes[1] == Genes.xx)
             {
                 //check all yellow combinations
                 Debug.Log("Checking yellow options");
-                if (newPlantGenes[0] == Genes.homozygousDominant)
+                if (newSeedGenes[0] == Genes.XX)
                 {
                     //coral rose
                 }
-                else if (newPlantGenes[0] == Genes.Heterozygous)
+                else if (newSeedGenes[0] == Genes.Xx)
                 {
                     //peach rose
                 }
@@ -76,15 +77,15 @@ public class Pollination : MonoBehaviour
                     //yellow rose
                 }
             }
-            else if (newPlantGenes[0] != Genes.homozygousRecessive)
+            else if (newSeedGenes[0] != Genes.xx)
             {
                 //check all red combinations
                 Debug.Log("Checking red options");
-                if (newPlantGenes[2] == Genes.homozygousDominant)
+                if (newSeedGenes[2] == Genes.XX)
                 {
                     //pink rose
                 }
-                else if (newPlantGenes[2] == Genes.Heterozygous)
+                else if (newSeedGenes[2] == Genes.Xx)
                 {
                     //red rose
                 }
@@ -97,11 +98,11 @@ public class Pollination : MonoBehaviour
             {
                 //check all white combinations
                 Debug.Log("Checking white options");
-                if (newPlantGenes[2] == Genes.homozygousDominant)
+                if (newSeedGenes[2] == Genes.XX)
                 {
                     //white rose
                 }
-                else if (newPlantGenes[2] == Genes.Heterozygous)
+                else if (newSeedGenes[2] == Genes.Xx)
                 {
                     //lavender rose
                 }

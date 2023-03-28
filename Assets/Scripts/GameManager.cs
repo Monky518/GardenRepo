@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject newPlantSelected;
     public bool water;
+    public bool pollenJar;
 
     public GameObject newSeed;
     

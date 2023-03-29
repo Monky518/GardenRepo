@@ -6,57 +6,116 @@ public class Pollination : MonoBehaviour
 {
     public enum Genes
     {
-        Xx,
         XX,
+        Xx,
         xx
     }
     public Genes[] pollenGenes;
-    public Genes[] plantGenes;
+    public Genes[] flowerGenes;
     public Genes[] newSeedGenes;
 
-    public enum FlowerType
+    public enum Species
     {
         Rose,
-        None
+        Unknown
     }
-    public FlowerType pollenType = FlowerType.None;
-    public FlowerType plantType = FlowerType.None;
-    public FlowerType newSeedType = FlowerType.None;
+    public Species pollenType = Species.Unknown;
+    public Species flowerType = Species.Unknown;
+    public Species newSeedType = Species.Unknown;
 
     void FindPollen()
     {
-        //finds all pollen genes and flower type
+        //run when what?
+        //finds selected object
+        //grabs genes and species
         //change jar gameobject to be full
     }
 
     void FindPlant()
     {
-        //if flower type is the same as pollen
-            //finds all plant genes
-            //remove jar gameobject
+        //run when what?
+        //finds selected object
+        //grabs genes and species
+        //if species is the same as pollen
+        //finds all plant genes
+        //remove jar gameobject
     }
 
     void NewGenetics()
     {
-        //sets new genetics for all genes depending on flower type
-        //for gene array.length
-            //if both homo and same, only homo of the same
-            //if both homo and different, all hetero
-            //if one homoDom and hetero, half homoRec and half hetero
-            //if one homoRec and hetero, half homoRec and half hetero
-            //if both hetero, half hetero, fourth homoRec, and fourth homoDom
-            //set specific gene to newSeed genes
+        //sets array length so it doesn't scream at me later
+        if (pollenType == Species.Rose)
+        {
+            newSeedGenes[] = new Genes[pollenGenes.Length - 1];
+        }
+
+        //finds every single posibility for the genes
+        for (int i = 0; i < pollenGenes; i++)
+        {
+            if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.XX || pollenGenes[i] == Genes.xx && flowerGenes[i] == Genes.xx)
+            {
+                //if both XX or xx, same genes
+                newSeedGenes[i] = pollenGenes[i];
+            }
+            else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.xx || pollenGenes[i] == Genes.xx && pollenGenes[i] == Genes.XX) { }
+            {
+                //if both XX and xx, all Xx
+                newSeedGenes[i] = Genes.Xx;
+            }
+            else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.Xx || pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.XX)
+            {
+                //if one XX and Xx, half XX and half Xx
+                float chance = Random.value;
+                if (chance < 0.5f)
+                {
+                    newSeedGenes[i] == Genes.XX;
+                }
+                else
+                {
+                    newSeedGenes[i] == Genes.Xx;
+                }
+            }
+            else if (pollenGenes[i] == Genes.xx && flowerGenes[i] == Genes.Xx || pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.xx)
+            {
+                //if one xx and Xx, half xx and half Xx
+                float chance = Random.value;
+                if (chance < 0.5f)
+                {
+                    newSeedGenes[i] == Genes.xx;
+                }
+                else
+                {
+                    newSeedGenes[i] == Genes.Xx;
+                }
+            }
+            else if (pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.Xx)
+            {
+                //if both Xx, half Xx, fourth xx, and fourth XX
+                float chance = Random.value;
+                if (chance < 0.75f)
+                {
+                    newSeedGenes[i] = Genes.XX;
+                }
+                else if (chance < 0.25f)
+                {
+                    newSeedGenes[i] = Genes.Xx;
+                }
+                else
+                {
+                    newSeedGenes[i] = Genes.xx;
+                }
+            }
+        }
     }
 
     void NewFlowerSprite()
     {
-        //sets new plant color (sprite and animation) depending on flower type
+        //sets new plant color (sprite and animation) depending on species
         //for rose, show all things
         //for other flower, show all
-        //continue for all flowerTypes
+        //continue for all species
 
-
-        if (newSeedType == FlowerType.Rose)
+        if (newSeedType == Species.Rose)
         {
             //Red = 0, notYellow = 1, and White = 2
 

@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class Flower : MonoBehaviour
 {
-    public enum FlowerType
+    public enum Species
     {
         Rose,
-        None
+        Unknown
     }
-    public FlowerType plantType;
+    public Species flowerType;
 
     public enum Genes
     {
-        Xx,
         XX,
+        Xx,
         xx
     }
-    public Genes[] plantGenes;
+    public Genes[] flowerGenes;
 
     void Start()
     {
-        if (plantType == FlowerType.Rose)
+        if (flowerType == Species.Rose)
         {
-            plantGenes = new Genes[2];
+            flowerGenes = new Genes[2];
         }
     }
 }

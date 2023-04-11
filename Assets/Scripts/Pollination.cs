@@ -27,70 +27,82 @@ public class Pollination : MonoBehaviour
     {
         //run when what?
         //finds selected object
-        //grabs genes and species
+        //grabs species then genes (setting array amount first)
         //change jar gameobject to be full
+
+        //sets array length so it doesn't scream at me later
+        if (pollenType == Species.Rose)
+        {
+            newSeedGenes = new Genes[pollenGenes.Length - 1];
+        }
     }
 
     void FindPlant()
     {
         //run when what?
         //finds selected object
-        //grabs genes and species
+        //grabs species then genes (setting array amount first)
         //if species is the same as pollen
         //finds all plant genes
         //remove jar gameobject
-    }
+        //else player error message
 
-    void NewGenetics()
-    {
         //sets array length so it doesn't scream at me later
         if (pollenType == Species.Rose)
         {
-            newSeedGenes[] = new Genes[pollenGenes.Length - 1];
+            newSeedGenes = new Genes[pollenGenes.Length - 1];
         }
+    }
 
+    public void NewGenetics()
+    {
         //finds every single posibility for the genes
-        for (int i = 0; i < pollenGenes; i++)
+        for (int i = 0; i < pollenGenes.Length; i++)
         {
             if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.XX || pollenGenes[i] == Genes.xx && flowerGenes[i] == Genes.xx)
             {
                 //if both XX or xx, same genes
                 newSeedGenes[i] = pollenGenes[i];
+                Debug.Log("Only XX or only xx");
             }
-            else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.xx || pollenGenes[i] == Genes.xx && pollenGenes[i] == Genes.XX) { }
+            else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.xx || pollenGenes[i] == Genes.xx && pollenGenes[i] == Genes.XX)
             {
                 //if both XX and xx, all Xx
                 newSeedGenes[i] = Genes.Xx;
+                Debug.Log("Xx");
             }
             else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.Xx || pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.XX)
             {
                 //if one XX and Xx, half XX and half Xx
+                Debug.Log("XX or Xx");
                 float chance = Random.value;
                 if (chance < 0.5f)
                 {
-                    newSeedGenes[i] == Genes.XX;
+                    newSeedGenes[i] = Genes.XX;
                 }
                 else
                 {
-                    newSeedGenes[i] == Genes.Xx;
+                    newSeedGenes[i] = Genes.Xx;
                 }
             }
             else if (pollenGenes[i] == Genes.xx && flowerGenes[i] == Genes.Xx || pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.xx)
             {
                 //if one xx and Xx, half xx and half Xx
+                Debug.Log("Xx or xx");
                 float chance = Random.value;
                 if (chance < 0.5f)
                 {
-                    newSeedGenes[i] == Genes.xx;
+                    newSeedGenes[i] = Genes.xx;
                 }
                 else
                 {
-                    newSeedGenes[i] == Genes.Xx;
+                    newSeedGenes[i] = Genes.Xx;
                 }
             }
             else if (pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.Xx)
             {
                 //if both Xx, half Xx, fourth xx, and fourth XX
+                Debug.Log("XX Xx or xx");
                 float chance = Random.value;
                 if (chance < 0.75f)
                 {

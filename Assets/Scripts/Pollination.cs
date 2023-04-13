@@ -7,8 +7,8 @@ public class Pollination : MonoBehaviour
     public enum Genes
     {
         XX,
-        Xx,
-        xx
+        XY,
+        YY
     }
     public Genes[] pollenGenes;
     public Genes[] flowerGenes;
@@ -59,22 +59,22 @@ public class Pollination : MonoBehaviour
         //finds every single posibility for the genes
         for (int i = 0; i < pollenGenes.Length; i++)
         {
-            if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.XX || pollenGenes[i] == Genes.xx && flowerGenes[i] == Genes.xx)
+            if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.XX || pollenGenes[i] == Genes.YY && flowerGenes[i] == Genes.YY)
             {
-                //if both XX or xx, same genes
+                //if both XX or YY, same genes
                 newSeedGenes[i] = pollenGenes[i];
-                Debug.Log("Only XX or only xx");
+                Debug.Log("Only XX or only YY");
             }
-            else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.xx || pollenGenes[i] == Genes.xx && pollenGenes[i] == Genes.XX)
+            else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.YY || pollenGenes[i] == Genes.YY && flowerGenes[i] == Genes.XX)
             {
-                //if both XX and xx, all Xx
-                newSeedGenes[i] = Genes.Xx;
-                Debug.Log("Xx");
+                //if both XX and YY, all XY
+                newSeedGenes[i] = Genes.XY;
+                Debug.Log("XY");
             }
-            else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.Xx || pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.XX)
+            else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.XY || pollenGenes[i] == Genes.XY && flowerGenes[i] == Genes.XX)
             {
-                //if one XX and Xx, half XX and half Xx
-                Debug.Log("XX or Xx");
+                //if one XX and XY, half XX and half XY
+                Debug.Log("XX or XY");
                 float chance = Random.value;
                 if (chance < 0.5f)
                 {
@@ -82,27 +82,27 @@ public class Pollination : MonoBehaviour
                 }
                 else
                 {
-                    newSeedGenes[i] = Genes.Xx;
+                    newSeedGenes[i] = Genes.XY;
                 }
             }
-            else if (pollenGenes[i] == Genes.xx && flowerGenes[i] == Genes.Xx || pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.xx)
+            else if (pollenGenes[i] == Genes.YY && flowerGenes[i] == Genes.XY || pollenGenes[i] == Genes.XY && flowerGenes[i] == Genes.YY)
             {
-                //if one xx and Xx, half xx and half Xx
-                Debug.Log("Xx or xx");
+                //if one YY and XY, half YY and half XY
+                Debug.Log("XY or YY");
                 float chance = Random.value;
                 if (chance < 0.5f)
                 {
-                    newSeedGenes[i] = Genes.xx;
+                    newSeedGenes[i] = Genes.YY;
                 }
                 else
                 {
-                    newSeedGenes[i] = Genes.Xx;
+                    newSeedGenes[i] = Genes.XY;
                 }
             }
-            else if (pollenGenes[i] == Genes.Xx && flowerGenes[i] == Genes.Xx)
+            else if (pollenGenes[i] == Genes.XY && flowerGenes[i] == Genes.XY)
             {
-                //if both Xx, half Xx, fourth xx, and fourth XX
-                Debug.Log("XX Xx or xx");
+                //if both XY, half XY, fourth YY, and fourth XX
+                Debug.Log("XX XY or YY");
                 float chance = Random.value;
                 if (chance < 0.75f)
                 {
@@ -110,11 +110,11 @@ public class Pollination : MonoBehaviour
                 }
                 else if (chance < 0.25f)
                 {
-                    newSeedGenes[i] = Genes.Xx;
+                    newSeedGenes[i] = Genes.XY;
                 }
                 else
                 {
-                    newSeedGenes[i] = Genes.xx;
+                    newSeedGenes[i] = Genes.YY;
                 }
             }
         }
@@ -131,7 +131,7 @@ public class Pollination : MonoBehaviour
         {
             //Red = 0, notYellow = 1, and White = 2
 
-            if (newSeedGenes[1] == Genes.xx)
+            if (newSeedGenes[1] == Genes.YY)
             {
                 //check all yellow combinations
                 Debug.Log("Checking yellow options");
@@ -139,7 +139,7 @@ public class Pollination : MonoBehaviour
                 {
                     //coral rose
                 }
-                else if (newSeedGenes[0] == Genes.Xx)
+                else if (newSeedGenes[0] == Genes.XY)
                 {
                     //peach rose
                 }
@@ -148,7 +148,7 @@ public class Pollination : MonoBehaviour
                     //yellow rose
                 }
             }
-            else if (newSeedGenes[0] != Genes.xx)
+            else if (newSeedGenes[0] != Genes.YY)
             {
                 //check all red combinations
                 Debug.Log("Checking red options");
@@ -156,7 +156,7 @@ public class Pollination : MonoBehaviour
                 {
                     //pink rose
                 }
-                else if (newSeedGenes[2] == Genes.Xx)
+                else if (newSeedGenes[2] == Genes.XY)
                 {
                     //red rose
                 }
@@ -173,7 +173,7 @@ public class Pollination : MonoBehaviour
                 {
                     //white rose
                 }
-                else if (newSeedGenes[2] == Genes.Xx)
+                else if (newSeedGenes[2] == Genes.XY)
                 {
                     //lavender rose
                 }
@@ -181,6 +181,56 @@ public class Pollination : MonoBehaviour
                 {
                     //black rose
                 }
+            }
+        }
+    }
+
+    public void SetArrayLength(string arrayName, int length)
+    {
+        if (arrayName == "Pollen")
+        {
+            pollenGenes = new Genes[length];
+        }
+        else if (arrayName == "Flower")
+        {
+            flowerGenes = new Genes[length];
+        }
+        else if (arrayName == "Seed")
+        {
+            newSeedGenes = new Genes[length];
+        }
+    }
+    
+    public void SettingGenes(int x, string arrayName, int arrayNumber)
+    {
+        if (arrayName == "Pollen")
+        {
+            if (x == 0)
+            {
+                pollenGenes[arrayNumber] = Genes.XX;
+            }
+            else if (x == 1)
+            {
+                pollenGenes[arrayNumber] = Genes.XY;
+            }
+            else if (x == 2)
+            {
+                pollenGenes[arrayNumber] = Genes.YY;
+            }
+        }
+        else if (arrayName == "Flower")
+        {
+            if (x == 0)
+            {
+                flowerGenes[arrayNumber] = Genes.XX;
+            }
+            else if (x == 1)
+            {
+                flowerGenes[arrayNumber] = Genes.XY;
+            }
+            else if (x == 2)
+            {
+                flowerGenes[arrayNumber] = Genes.YY;
             }
         }
     }

@@ -7,43 +7,64 @@ public class Test : MonoBehaviour
     public enum Genes
     {
         XX,
-        Xx,
-        xx
+        XY,
+        YY
     }
     public Genes pollenGenes;
     public Genes flowerGenes;
 
-    void FindNewGens()
+    public void BeginTest()
+    {
+        StartCoroutine(FindNewGens());
+    }
+    
+    IEnumerator FindNewGens()
     {
         //makes it easier for me later
         GameObject gm = GameObject.Find("GameManager");
+        string Pollen = "Pollen";
+        string Flower = "Flower";
 
+        //SET ARRAYS TO LENGTH ONE INSTEAD OF ZERO
+        gm.GetComponent<Pollination>().SetArrayLength("Pollen", 1);
+        gm.GetComponent<Pollination>().SetArrayLength("Flower", 1);
+        gm.GetComponent<Pollination>().SetArrayLength("Seed", 1);
+
+        //sets the new genes for flower and pollen
         if (pollenGenes == Genes.XX)
         {
-            gm.GetComponent<Pollination>().pollenGenes[0] = gm.GetComponent<Pollination>().Genes.XX;
+            //zero x, pollen, array[0]
+            gm.GetComponent<Pollination>().SettingGenes(0, Pollen, 0);
         }
-        else if (pollenGenes == Genes.Xx)
+        else if (pollenGenes == Genes.XY)
         {
-            //gm.GetComponent<Pollination>().pollenGenes = gm.GetComponent<Pollination>().Genes.Xx;
+            //one x, pollen, array[0]
+            gm.GetComponent<Pollination>().SettingGenes(1, Pollen, 0);
         }
         else
         {
-            //gm.GetComponent<Pollination>().pollenGenes = gm.GetComponent<Pollination>().Genes.xx;
+            //two x, pollen, array[0]
+            gm.GetComponent<Pollination>().SettingGenes(2, Pollen, 0);
         }
 
         if (flowerGenes == Genes.XX)
         {
-            //gm.GetComponent<Pollination>().flowerGenes = gm.GetComponent<Pollination>().Genes.XX;
+            //zero x, flower, array[0]
+            gm.GetComponent<Pollination>().SettingGenes(0, Flower, 0);
         }
-        else if (flowerGenes == Genes.Xx)
+        else if (flowerGenes == Genes.XY)
         {
-            //gm.GetComponent<Pollination>().flowerGenes = gm.GetComponent<Pollination>().Genes.Xx;
+            //one x, flower, array[0]
+            gm.GetComponent<Pollination>().SettingGenes(1, Flower, 0);
         }
         else
         {
-            //gm.GetComponent<Pollination>().flowerGenes = gm.GetComponent<Pollination>().Genes.xx;
+            //two x, flower, array[0]
+            gm.GetComponent<Pollination>().SettingGenes(2, Flower, 0);
         }
 
+        //waits a bit and then runs for new seed genes
+        yield return new WaitForSeconds(1);
         gm.GetComponent<Pollination>().NewGenetics();
     }
 }

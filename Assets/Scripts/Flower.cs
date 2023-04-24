@@ -14,8 +14,8 @@ public class Flower : MonoBehaviour
     public enum Genes
     {
         XX,
-        Xx,
-        xx
+        XY,
+        YY
     }
     public Genes[] flowerGenes;
 
@@ -25,5 +25,29 @@ public class Flower : MonoBehaviour
         {
             flowerGenes = new Genes[2];
         }
+    }
+
+    public void SendType()
+    {
+
+    }
+
+    public void SendGenes(int genesArray, string newArray)
+    {
+        //picks up info and then bounces back to the script
+        string info = "nothing";
+        if (flowerGenes[genesArray] == Genes.XX)
+        {
+            info = "XX";
+        }
+        else if (flowerGenes[genesArray] == Genes.XY)
+        {
+            info = "XY";
+        }
+        else if (flowerGenes[genesArray] == Genes.YY)
+        {
+            info = "YY";
+        }
+        GameObject.Find("GameManager").GetComponent<Pollination>().SettingGenes(newArray, genesArray, info);
     }
 }

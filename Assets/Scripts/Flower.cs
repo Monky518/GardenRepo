@@ -27,9 +27,15 @@ public class Flower : MonoBehaviour
         }
     }
 
-    public void SendType()
+    public void SendType(string objectName)
     {
-
+        //picks up info and then bounces back to the script
+        string info = "nothing";
+        if (flowerType == Species.Rose)
+        {
+            info = "Rose";
+        }
+        GameObject.Find("GameManager").GetComponent<Pollination>().SettingType(objectName, info);
     }
 
     public void SendGenes(int genesArray, string newArray)

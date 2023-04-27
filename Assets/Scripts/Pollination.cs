@@ -79,7 +79,7 @@ public class Pollination : MonoBehaviour
             //find all flower gameobjects
             GameObject[] flower = GameObject.FindGameObjectsWithTag("Flower");
 
-            //sets all flower pot rects
+            //sets all flower rects
             Rect test = new Rect(0, 0, 1, 1);
 
             //check for overlap
@@ -96,11 +96,32 @@ public class Pollination : MonoBehaviour
 
                     if (currentStep == Steps.pollenStep)
                     {
-                        flower[i].GetComponent<Flower>().SendGenes(i, "Pollen");
+                        //finds and stes pollenType
+                        GameObject.Find("GameManager").GetComponent<Flower>().SendType("Pollen");
+
+                        //finds and sets pollenGenes
+                        for (int j = 0; j < roseArrayLength; j++)
+                        {
+                            flower[i].GetComponent<Flower>().SendGenes(j, "Pollen");
+                        }
                     }
                     else if (currentStep == Steps.flowerStep)
                     {
-                        flower[i].GetComponent<Flower>().SendGenes(i, "Flower");
+                        //finds, sets, and tests flowerType
+                        GameObject.Find("GameManager").GetComponent<Flower>().SendType("Flower");
+                        if (pollenType == flowerType)
+                        {
+                            //finds and sets flowerGenes
+                            for (int j = 0; j < roseArrayLength; j++)
+                            {
+                                flower[i].GetComponent<Flower>().SendGenes(j, "Flower");
+                            }
+                        }
+                        else
+                        {
+                            //NOTHING FREAKING HAPPENS
+                            //L + RATIO
+                        }
                     }
 
                     //stops the search for the flower
@@ -309,7 +330,7 @@ public class Pollination : MonoBehaviour
         }
     }
 
-    public void SetArrayLength(string arrayName, int length)
+    public void SetArrayLength (string arrayName, int length)
     {
         if (arrayName == "Pollen")
         {
@@ -325,7 +346,7 @@ public class Pollination : MonoBehaviour
         }
     }
     
-    public void SettingGenes(string arrayName, int arrayNumber, string geneType)
+    public void SettingGenes (string arrayName, int arrayNumber, string geneType)
     {
         if (arrayName == "Pollen")
         {
@@ -355,6 +376,21 @@ public class Pollination : MonoBehaviour
             else if (geneType == "YY")
             {
                 flowerGenes[arrayNumber] = Genes.YY;
+            }
+        }
+    }
+
+    public void SettingType (string objectName, string typeName)
+    {
+        if (typeName == "Rose")
+        {
+            if (objectName == "Flower")
+            {
+                flowerType = Species.Rose;
+            }
+            else if (objectName == "Pollen")
+            {
+                pollenType = Species.Rose;
             }
         }
     }

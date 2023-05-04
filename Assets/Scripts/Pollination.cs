@@ -12,7 +12,7 @@ public class Pollination : MonoBehaviour
     }
     public Genes[] pollenGenes;
     public Genes[] flowerGenes;
-    public Genes[] newSeedGenes;
+    public Genes[] seedGenes;
 
     public enum Species
     {
@@ -21,7 +21,7 @@ public class Pollination : MonoBehaviour
     }
     public Species pollenType = Species.Unknown;
     public Species flowerType = Species.Unknown;
-    public Species newSeedType = Species.Unknown;
+    public Species seedType = Species.Unknown;
 
     public int roseArrayLength = 3;
 
@@ -38,34 +38,40 @@ public class Pollination : MonoBehaviour
     public GameObject pollenJar;
     public GameObject seed;
 
-    private Vector3 jarStartPosition;
-    private Vector3 pollenJarStartPosition;
-    private Vector3 seedStartPosition;
+    private Vector3 holdingBoxPosition = new Vector3 (-10, 0, 0);
 
-    void Start()
-    {
-        //finds starting position for each
-        jarStartPosition = jar.transform.position;
-        pollenJarStartPosition = pollenJar.transform.position;
-        seedStartPosition = seed.transform.position;
-    }
-    
     void Update()
     {
+        //any gameobject following the mouse movement
         FollowMouse();
     }
     
-    void FindPollen()
+    void PollenButton()
     {
-        //run when what?
-        //finds selected object
-        //grabs species then genes (setting array amount first)
-        //change jar gameobject to be full
-
-
-
         if (currentStep == Steps.nothing)
         {
+            //get a jar and start
+            FindPollen();
+        }
+        else if (currentStep == Steps.pollenStep)
+        {
+            //put back the jar
+            currentStep = Steps.nothing;
+        }
+    } 
+    
+    void FindPollen()
+    {
+        if (currentStep == Steps.nothing)
+        {
+            //resets pollen and flower to prep future seed
+            pollenGenes = new Genes[0];
+            flowerGenes = new Genes[0];
+            seedGenes = new Genes[0];
+            pollenType = Species.Unknown;
+            flowerType = Species.Unknown;
+            seedType = Species.Unknown;
+            
             //automatically starts following mouse
             currentStep = Steps.pollenStep;
         }
@@ -91,12 +97,9 @@ public class Pollination : MonoBehaviour
                 //checks where player selected
                 if (test.Overlaps(mouse))
                 {
-                    ///find flowerType with array length values and then a "for" statement for each of the genes
-                    ///place all next things in the "for" statement
-
                     if (currentStep == Steps.pollenStep)
                     {
-                        //finds and stes pollenType
+                        //finds and sets pollenType
                         GameObject.Find("GameManager").GetComponent<Flower>().SendType("Pollen");
 
                         //finds and sets pollenGenes
@@ -104,23 +107,28 @@ public class Pollination : MonoBehaviour
                         {
                             flower[i].GetComponent<Flower>().SendGenes(j, "Pollen");
                         }
+
+                        //changes mode
+                        currentStep = Steps.flowerStep;
                     }
                     else if (currentStep == Steps.flowerStep)
                     {
                         //finds, sets, and tests flowerType
                         GameObject.Find("GameManager").GetComponent<Flower>().SendType("Flower");
-                        if (pollenType == flowerType)
+                        if (pollenType == flowerType && pollenType != Species.Unknown)
                         {
                             //finds and sets flowerGenes
                             for (int j = 0; j < roseArrayLength; j++)
                             {
                                 flower[i].GetComponent<Flower>().SendGenes(j, "Flower");
                             }
-                        }
-                        else
-                        {
-                            //NOTHING FREAKING HAPPENS
-                            //L + RATIO
+
+                            //sets new seed things
+                            NewGenetics();
+                            seedType = pollenType;
+
+                            //change mode
+                            currentStep = Steps.seedStep;
                         }
                     }
 
@@ -129,29 +137,9 @@ public class Pollination : MonoBehaviour
                 }
             }
         }
-
-
-
-        ///Select button which spawns jar
-        ///Select flower and replace jar with pollen jar
-        ///Select flower and replace pollen jar with seed
-        ///Select pot or storage and despawn seed
-    }
-
-    void FindPlant()
-    {
-        //run when what?
-        //finds selected object
-        //grabs species then genes (setting array amount first)
-        //if species is the same as pollen
-        //finds all plant genes
-        //remove jar gameobject
-        //else player error message
-
-        //sets array length so it doesn't scream at me later
-        if (pollenType == Species.Rose)
+        else if (currentStep == Steps.seedStep)
         {
-            newSeedGenes = new Genes[pollenGenes.Length - 1];
+            //gives seed to either flowerPot or storage for later
         }
     }
 
@@ -163,13 +151,13 @@ public class Pollination : MonoBehaviour
             if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.XX || pollenGenes[i] == Genes.YY && flowerGenes[i] == Genes.YY)
             {
                 //if both XX or YY, same genes
-                newSeedGenes[i] = pollenGenes[i];
+                seedGenes[i] = pollenGenes[i];
                 Debug.Log("Only XX or only YY");
             }
             else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.YY || pollenGenes[i] == Genes.YY && flowerGenes[i] == Genes.XX)
             {
                 //if both XX and YY, all XY
-                newSeedGenes[i] = Genes.XY;
+                seedGenes[i] = Genes.XY;
                 Debug.Log("XY");
             }
             else if (pollenGenes[i] == Genes.XX && flowerGenes[i] == Genes.XY || pollenGenes[i] == Genes.XY && flowerGenes[i] == Genes.XX)
@@ -179,11 +167,11 @@ public class Pollination : MonoBehaviour
                 float chance = Random.value;
                 if (chance < 0.5f)
                 {
-                    newSeedGenes[i] = Genes.XX;
+                    seedGenes[i] = Genes.XX;
                 }
                 else
                 {
-                    newSeedGenes[i] = Genes.XY;
+                    seedGenes[i] = Genes.XY;
                 }
             }
             else if (pollenGenes[i] == Genes.YY && flowerGenes[i] == Genes.XY || pollenGenes[i] == Genes.XY && flowerGenes[i] == Genes.YY)
@@ -193,11 +181,11 @@ public class Pollination : MonoBehaviour
                 float chance = Random.value;
                 if (chance < 0.5f)
                 {
-                    newSeedGenes[i] = Genes.YY;
+                    seedGenes[i] = Genes.YY;
                 }
                 else
                 {
-                    newSeedGenes[i] = Genes.XY;
+                    seedGenes[i] = Genes.XY;
                 }
             }
             else if (pollenGenes[i] == Genes.XY && flowerGenes[i] == Genes.XY)
@@ -207,15 +195,15 @@ public class Pollination : MonoBehaviour
                 float chance = Random.value;
                 if (chance < 0.75f)
                 {
-                    newSeedGenes[i] = Genes.XX;
+                    seedGenes[i] = Genes.XX;
                 }
                 else if (chance < 0.25f)
                 {
-                    newSeedGenes[i] = Genes.XY;
+                    seedGenes[i] = Genes.XY;
                 }
                 else
                 {
-                    newSeedGenes[i] = Genes.YY;
+                    seedGenes[i] = Genes.YY;
                 }
             }
         }
@@ -228,19 +216,19 @@ public class Pollination : MonoBehaviour
         //for other flower, show all
         //continue for all species
 
-        if (newSeedType == Species.Rose)
+        if (seedType == Species.Rose)
         {
-            //Red = newSeedGenes[0], notYellow = newSeedGenes[1], and White = newSeedGenes[2]
+            //Red = seedGenes[0], notYellow = seedGenes[1], and White = seedGenes[2]
 
-            if (newSeedGenes[1] == Genes.YY)
+            if (seedGenes[1] == Genes.YY)
             {
                 //check all yellow combinations
                 Debug.Log("Checking yellow options");
-                if (newSeedGenes[0] == Genes.XX)
+                if (seedGenes[0] == Genes.XX)
                 {
                     //coral rose
                 }
-                else if (newSeedGenes[0] == Genes.XY)
+                else if (seedGenes[0] == Genes.XY)
                 {
                     //peach rose
                 }
@@ -249,15 +237,15 @@ public class Pollination : MonoBehaviour
                     //yellow rose
                 }
             }
-            else if (newSeedGenes[0] != Genes.YY)
+            else if (seedGenes[0] != Genes.YY)
             {
                 //check all red combinations
                 Debug.Log("Checking red options");
-                if (newSeedGenes[2] == Genes.XX)
+                if (seedGenes[2] == Genes.XX)
                 {
                     //pink rose
                 }
-                else if (newSeedGenes[2] == Genes.XY)
+                else if (seedGenes[2] == Genes.XY)
                 {
                     //red rose
                 }
@@ -270,11 +258,11 @@ public class Pollination : MonoBehaviour
             {
                 //check all white combinations
                 Debug.Log("Checking white options");
-                if (newSeedGenes[2] == Genes.XX)
+                if (seedGenes[2] == Genes.XX)
                 {
                     //white rose
                 }
-                else if (newSeedGenes[2] == Genes.XY)
+                else if (seedGenes[2] == Genes.XY)
                 {
                     //lavender rose
                 }
@@ -296,8 +284,8 @@ public class Pollination : MonoBehaviour
             jar.transform.position = mousePosition;
 
             //restart position
-            pollenJar.transform.position = pollenJarStartPosition;
-            seed.transform.position = seedStartPosition;
+            pollenJar.transform.position = holdingBoxPosition;
+            seed.transform.position = holdingBoxPosition;
         }
         else if (currentStep == Steps.flowerStep)
         {
@@ -307,8 +295,8 @@ public class Pollination : MonoBehaviour
             pollenJar.transform.position = mousePosition;
 
             //restart position
-            jar.transform.position = jarStartPosition;
-            seed.transform.position = seedStartPosition;
+            jar.transform.position = holdingBoxPosition;
+            seed.transform.position = holdingBoxPosition;
         }
         else if (currentStep == Steps.seedStep)
         {
@@ -318,15 +306,15 @@ public class Pollination : MonoBehaviour
             seed.transform.position = mousePosition;
 
             //restart position
-            jar.transform.position = jarStartPosition;
-            pollenJar.transform.position = pollenJarStartPosition;
+            jar.transform.position = holdingBoxPosition;
+            pollenJar.transform.position = holdingBoxPosition;
         }
         else
         {
             //restart position
-            jar.transform.position = jarStartPosition;
-            pollenJar.transform.position = pollenJarStartPosition;
-            seed.transform.position = seedStartPosition;
+            jar.transform.position = holdingBoxPosition;
+            pollenJar.transform.position = holdingBoxPosition;
+            seed.transform.position = holdingBoxPosition;
         }
     }
 
@@ -342,7 +330,7 @@ public class Pollination : MonoBehaviour
         }
         else if (arrayName == "Seed")
         {
-            newSeedGenes = new Genes[length];
+            seedGenes = new Genes[length];
         }
     }
     
@@ -352,30 +340,30 @@ public class Pollination : MonoBehaviour
         {
             if (geneType == "XX")
             {
-                pollenGenes[arrayNumber] = Genes.XX;
+                pollenGenes[arrayNumber - 1] = Genes.XX;
             }
             else if (geneType == "XY")
             {
-                pollenGenes[arrayNumber] = Genes.XY;
+                pollenGenes[arrayNumber - 1] = Genes.XY;
             }
             else if (geneType == "YY")
             {
-                pollenGenes[arrayNumber] = Genes.YY;
+                pollenGenes[arrayNumber - 1] = Genes.YY;
             }
         }
         else if (arrayName == "Flower")
         {
             if (geneType == "XX")
             {
-                flowerGenes[arrayNumber] = Genes.XX;
+                flowerGenes[arrayNumber - 1] = Genes.XX;
             }
             else if (geneType == "XY")
             {
-                flowerGenes[arrayNumber] = Genes.XY;
+                flowerGenes[arrayNumber - 1] = Genes.XY;
             }
             else if (geneType == "YY")
             {
-                flowerGenes[arrayNumber] = Genes.YY;
+                flowerGenes[arrayNumber - 1] = Genes.YY;
             }
         }
     }
@@ -387,10 +375,12 @@ public class Pollination : MonoBehaviour
             if (objectName == "Flower")
             {
                 flowerType = Species.Rose;
+                flowerGenes = new Genes[roseArrayLength];
             }
             else if (objectName == "Pollen")
             {
                 pollenType = Species.Rose;
+                pollenGenes = new Genes[roseArrayLength];
             }
         }
     }

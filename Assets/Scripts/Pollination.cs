@@ -44,9 +44,14 @@ public class Pollination : MonoBehaviour
     {
         //any gameobject following the mouse movement
         FollowMouse();
+
+        if (currentStep != Steps.nothing)
+        {
+            //checks mouse input to run FindPollen
+        }
     }
     
-    void PollenButton()
+    public void PollenButton()
     {
         if (currentStep == Steps.nothing)
         {
@@ -64,6 +69,8 @@ public class Pollination : MonoBehaviour
     {
         if (currentStep == Steps.nothing)
         {
+            Debug.Log("Pressed the button");
+            
             //resets pollen and flower to prep future seed
             pollenGenes = new Genes[0];
             flowerGenes = new Genes[0];
@@ -126,6 +133,7 @@ public class Pollination : MonoBehaviour
                             //sets new seed things
                             NewGenetics();
                             seedType = pollenType;
+                            NewFlowerSprite();
 
                             //change mode
                             currentStep = Steps.seedStep;
@@ -139,7 +147,9 @@ public class Pollination : MonoBehaviour
         }
         else if (currentStep == Steps.seedStep)
         {
-            //gives seed to either flowerPot or storage for later
+            //grow next plant
+            //GameObject.Find("GameManager").GetComponent<GameManager>().newPlantSelected = whatever NewFlowerSprite gives;
+            GameObject.Find("GameManager").GetComponent<GameManager>().PlantSeedPlacement(); 
         }
     }
 
@@ -278,6 +288,8 @@ public class Pollination : MonoBehaviour
     {
         if (currentStep == Steps.pollenStep)
         {
+            Debug.Log("Jar should follow soon");
+            
             //follow mouse
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = Camera.main.transform.position.z + Camera.main.nearClipPlane;
@@ -286,6 +298,8 @@ public class Pollination : MonoBehaviour
             //restart position
             pollenJar.transform.position = holdingBoxPosition;
             seed.transform.position = holdingBoxPosition;
+
+            Debug.Log("Jar is following now");
         }
         else if (currentStep == Steps.flowerStep)
         {

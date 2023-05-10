@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void PlantSeedPlacement()
+    public void PlantSeedPlacement()
     {
         //sets moust rect by finding position, setting it into camera bounds, and setting the rect accordingly
         Vector3 nastyMousePos = Input.mousePosition;

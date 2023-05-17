@@ -48,6 +48,10 @@ public class Pollination : MonoBehaviour
         if (currentStep != Steps.nothing)
         {
             //checks mouse input to run FindPollen
+            if (Input.GetButtonDown("Fire1"))
+            {
+                FindPollen();
+            }
         }
     }
     
@@ -89,6 +93,8 @@ public class Pollination : MonoBehaviour
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(nastyMousePos.x, nastyMousePos.y, 0));
             Rect mouse = new Rect(mousePos.x, mousePos.y, 0.5f, 0.5f);
 
+            Debug.Log("Mouse Position: " + mousePos);
+
             //find all flower gameobjects
             GameObject[] flower = GameObject.FindGameObjectsWithTag("Flower");
 
@@ -104,10 +110,12 @@ public class Pollination : MonoBehaviour
                 //checks where player selected
                 if (test.Overlaps(mouse))
                 {
+                    Debug.Log("Found a flower: " + flower[i].transform.position);
+                    
                     if (currentStep == Steps.pollenStep)
                     {
                         //finds and sets pollenType
-                        GameObject.Find("GameManager").GetComponent<Flower>().SendType("Pollen");
+                        flower[i].GetComponent<Flower>().SendType("Pollen");
 
                         //finds and sets pollenGenes
                         for (int j = 0; j < roseArrayLength; j++)
@@ -121,7 +129,7 @@ public class Pollination : MonoBehaviour
                     else if (currentStep == Steps.flowerStep)
                     {
                         //finds, sets, and tests flowerType
-                        GameObject.Find("GameManager").GetComponent<Flower>().SendType("Flower");
+                        flower[i].GetComponent<Flower>().SendType("Flower");
                         if (pollenType == flowerType && pollenType != Species.Unknown)
                         {
                             //finds and sets flowerGenes
@@ -131,8 +139,8 @@ public class Pollination : MonoBehaviour
                             }
 
                             //sets new seed things
-                            NewGenetics();
                             seedType = pollenType;
+                            NewGenetics();
                             NewFlowerSprite();
 
                             //change mode
@@ -155,6 +163,12 @@ public class Pollination : MonoBehaviour
 
     public void NewGenetics()
     {
+        //setting array length
+        if (seedType == Species.Rose && seedGenes.Length != roseArrayLength)
+        {
+            seedGenes = new Genes[roseArrayLength];
+        }
+
         //finds every single posibility for the genes
         for (int i = 0; i < pollenGenes.Length; i++)
         {
@@ -352,32 +366,49 @@ public class Pollination : MonoBehaviour
     {
         if (arrayName == "Pollen")
         {
+            //setting array length
+            if (pollenType == Species.Rose && pollenGenes.Length != roseArrayLength)
+            {
+                pollenGenes = new Genes[roseArrayLength];
+            }
+
+            Debug.Log("Genes array length: " + pollenGenes.Length);
+            Debug.Log("arrayNumber for new genes: " + arrayNumber);
+
+            //sets new genes
             if (geneType == "XX")
             {
-                pollenGenes[arrayNumber - 1] = Genes.XX;
+                pollenGenes[arrayNumber] = Genes.XX;
             }
             else if (geneType == "XY")
             {
-                pollenGenes[arrayNumber - 1] = Genes.XY;
+                pollenGenes[arrayNumber] = Genes.XY;
             }
             else if (geneType == "YY")
             {
-                pollenGenes[arrayNumber - 1] = Genes.YY;
+                pollenGenes[arrayNumber] = Genes.YY;
             }
         }
         else if (arrayName == "Flower")
         {
+            //setting array length
+            if (flowerType == Species.Rose && flowerGenes.Length != roseArrayLength)
+            {
+                flowerGenes = new Genes[roseArrayLength];
+            }
+
+            //sets new genes
             if (geneType == "XX")
             {
-                flowerGenes[arrayNumber - 1] = Genes.XX;
+                flowerGenes[arrayNumber] = Genes.XX;
             }
             else if (geneType == "XY")
             {
-                flowerGenes[arrayNumber - 1] = Genes.XY;
+                flowerGenes[arrayNumber] = Genes.XY;
             }
             else if (geneType == "YY")
             {
-                flowerGenes[arrayNumber - 1] = Genes.YY;
+                flowerGenes[arrayNumber] = Genes.YY;
             }
         }
     }

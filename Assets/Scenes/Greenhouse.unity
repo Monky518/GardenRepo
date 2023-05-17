@@ -1988,9 +1988,10 @@ GameObject:
   m_Component:
   - component: {fileID: 773845922}
   - component: {fileID: 773845921}
+  - component: {fileID: 773845923}
   m_Layer: 0
   m_Name: White (1)
-  m_TagString: Untagged
+  m_TagString: Flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2062,6 +2063,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &773845923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773845920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc12754826c16bf4da6c286c91616b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowerType: 0
+  flowerGenes: 020000000200000000000000
 --- !u!1 &780427507
 GameObject:
   m_ObjectHideFlags: 0
@@ -5727,9 +5742,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1932245350}
   - component: {fileID: 1932245349}
+  - component: {fileID: 1932245351}
   m_Layer: 0
   m_Name: Red (1)
-  m_TagString: Untagged
+  m_TagString: Flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5801,6 +5817,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1932245351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932245348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc12754826c16bf4da6c286c91616b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flowerType: 0
+  flowerGenes: 000000000200000000000000
 --- !u!1 &1939875079
 GameObject:
   m_ObjectHideFlags: 0

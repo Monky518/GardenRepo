@@ -19,14 +19,6 @@ public class Flower : MonoBehaviour
     }
     public Genes[] flowerGenes;
 
-    void Start()
-    {
-        if (flowerType == Species.Rose)
-        {
-            flowerGenes = new Genes[2];
-        }
-    }
-
     public void SendType(string objectName)
     {
         //picks up info and then bounces back to the script
